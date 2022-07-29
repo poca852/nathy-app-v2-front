@@ -1,0 +1,23 @@
+<div class="toolbar">
+  <button pButton icon="pi pi-bars" class="btn-menu" (click)="menu = true"></button>
+</div>
+<p-sidebar [(visible)]="menu" [baseZIndex]="10000" [blockScroll]='true'>
+  <div class="flex flex-column">
+    <div class="pointer flex align-items-center justify-content-center h-2rem font-bold text-white border-round m-2"
+         *ngFor="let item of itemsMenu"
+         (click)="menu = false"
+         [routerLink]="item.ruta">
+         {{item.nombre}}
+    </div>
+
+    <div class="pointer flex align-items-center justify-content-center h-2rem font-bold text-white border-round m-2"
+         (click)="logout()">
+         Logout
+    </div>
+  </div>
+</p-sidebar>
+<!-- aqui ira el buscador -->
+<router-outlet></router-outlet>
+
+
+

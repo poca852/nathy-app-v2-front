@@ -1,0 +1,22 @@
+<div class="main flex flex-column justify-content-center card-container blue-container gap-3">
+  <p-card *ngFor="let item of clientes; let i = index">
+    <div class="flex flex-row justify-content-between align-content-center">
+      <div class="flex align-items-center">
+        <h3>{{item.nombre}}</h3>   
+      </div>
+      <div class="flex align-items-center">
+        <button 
+          type="button" 
+          pButton 
+          pRipple 
+          icon="pi pi-dollar" 
+          class="p-button-text p-button-success" 
+          [routerLink]="['/main/renovar', item.id]"></button>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<ng-template #divTemplate>
+  <h1>Cargando..</h1>
+</ng-template>

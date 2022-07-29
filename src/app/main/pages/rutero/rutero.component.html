@@ -1,0 +1,26 @@
+<div class="main flex flex-column justify-content-center card-container blue-container gap-3"
+      *ngIf="creditos.length > 0">
+  <p-card *ngFor="let item of creditos; let i = index">
+    <div class="flex flex-row justify-content-between align-content-center">
+      <div class="flex align-items-center">
+        <h3>{{item.cliente.nombre}} - {{item.saldo | currency:'GTQ'}}</h3>   
+      </div>
+      <div class="flex align-items-center">
+        <button 
+          type="button" 
+          pButton 
+          pRipple 
+          icon="pi pi-dollar" 
+          class="p-button-text p-button-success" 
+          [routerLink]="['/main/pago', item.id]"></button>
+        <button 
+          type="button" 
+          pButton 
+          pRipple 
+          icon="pi pi-user" 
+          class="p-button-text p-button-success" 
+          [routerLink]="['/main/cliente', item.cliente._id]"></button>
+      </div>
+    </div>
+  </p-card>
+</div>

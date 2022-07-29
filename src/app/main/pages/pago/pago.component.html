@@ -1,0 +1,75 @@
+<div class="main">
+  <p-card 
+    *ngIf="credito"
+    [header]="credito.cliente.alias | titlecase">
+    <div class="grid">
+      <div class="col">Prestado</div>
+      <div class="col">{{credito.valor_credito | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Total a Pagar</div>
+      <div class="col">{{credito.total_pagar | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Abonos</div>
+      <div class="col">{{credito.abonos | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Saldo</div>
+      <div class="col">{{credito.saldo | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Fecha</div>
+      <div class="col">{{credito.fecha_inicio}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Valor Cuota</div>
+      <div class="col">{{credito.valor_cuota | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Cuotas Pendientes</div>
+      <div class="col">{{(credito.saldo / credito.valor_cuota) | number:'1.2-2'}}</div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="grid">
+        <div class="col">Pago:</div>
+        <div class="col">
+          <div class="field-radiobutton">
+            <p-radioButton 
+              name="tipopago" 
+              value="fijo" 
+              inputId="fijo"
+              [formControl]="pagoSeleccionado"></p-radioButton>
+            <label for="fijo">Fijo</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="field-radiobutton">
+            <p-radioButton 
+              name="tipopago" 
+              value="variable" 
+              inputId="variable"
+              [formControl]="pagoSeleccionado"></p-radioButton>
+            <label for="variable">Variable</label>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <app-pago-fijo 
+          *ngIf="pagoSeleccionado.value === 'fijo'"
+          [credito]="credito"
+          ></app-pago-fijo>
+        <app-pago-variable *ngIf="pagoSeleccionado.value === 'variable'"></app-pago-variable>
+      </div>
+    </ng-template>
+    
+  </p-card>
+
+</div>

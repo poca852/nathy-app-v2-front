@@ -1,0 +1,15 @@
+<div class="grid" *ngIf="credito">
+  <div class="col">
+    <p-dropdown
+      [options]="pago"
+      [formControl]="pagoSeleccionado"
+      optionValue="valor"
+      optionLabel="cuotas"
+    > 
+    </p-dropdown>
+  </div>
+  <div class="col">
+
+    <button pButton label="Pagar" (click)="pagar()"></button>
+  </div>
+</div>

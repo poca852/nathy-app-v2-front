@@ -1,0 +1,56 @@
+<div class="main">
+  <form class="card" autocomplete="off" (submit)="guardar()" [formGroup]="formCliente">
+    <div class="flex flex-column flex-wrap card-container justify-content-center gap-4">
+      <div class="flex justify-content-center">
+        <span class="p-float-label col-12">
+          <input 
+            type="text" 
+            id="dpi" 
+            pInputText
+            formControlName="dpi"
+            class="col-12">
+          <label for="dpi">Dpi</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center">
+        <span class="p-float-label col-12">
+          <input 
+            type="text" 
+            id="nombre" 
+            pInputText
+            formControlName="nombre"
+            class="col-12">
+          <label for="nombre">Nombre</label>
+        </span>
+      </div>
+      <div class="flex jusity-content-center">
+        <span class="p-float-label col-12">
+          <input type="text" id="alias" class="col-12" pInputText formControlName="alias">
+          <label for="alias">Alias</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center">
+        <span class="p-float-label col-12">
+          <input type="text" id="ciudad" pInputText class="col-12" formControlName="ciudad">
+          <label for="ciudad">Ciudad</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center">
+        <span class="p-float-label col-12">
+          <input type="text" id="direccion" pInputText class="col-12" formControlName="direccion">
+          <label for="direccion">Direccion</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center">
+        <span class="p-float-label col-12">
+          <input type="text" id="telefono" pInputText class="col-12" formControlName="telefono">
+          <label for="telefono">Telefono</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center">
+        <button pButton label="Guardar" type="submit" class="col-12" [disabled]="formCliente.invalid">
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

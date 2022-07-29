@@ -1,0 +1,14 @@
+<div class="main">
+  <form (submit)="buscar()" [formGroup]="form">
+      <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input 
+        type="text" 
+        pInputText 
+        formControlName='termino' 
+        [placeholder]="placeholder"
+        (input)="teclaPresionada()"
+        autocomplete="off" />
+      </span>
+    </form>
+</div>

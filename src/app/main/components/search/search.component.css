@@ -1,0 +1,10 @@
+.main{
+  position: absolute;
+  background-color: var(--surface-b);
+  padding: 10px;
+  top: 50px;
+  display: grid;
+  justify-content: center;
+  left: 0;right:0;
+  width: 100%;
+}
