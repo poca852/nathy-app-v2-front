@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CreditosResponse, Credito, CreditoResponse, PagoResponse, ClienteResponse } from '../interfaces/main.interfaces';
+import { CreditosResponse, Credito, CreditoResponse, PagoResponse, ClienteResponse, Caja, InversionResponse, ListaGastoResponse, GastoResponse, RetiroResponse, GetCliente, GetPagosInterface } from '../interfaces/main.interfaces';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -73,4 +73,71 @@ export class MainService {
       )
   }
 
+  getCaja(): Observable<Caja> {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<Caja>(`${this.baseUrl}/caja`, {headers});
+  }
+
+  addInversion(valor: number, nota: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.post<InversionResponse>(`${this.baseUrl}/inversiones`, {valor, nota}, {headers})
+      .pipe(
+        map(resp => resp.ok),
+        catchError(err => err.errors.error.msg)
+      )
+  }
+
+  getListaGastos(){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<ListaGastoResponse>(`${this.baseUrl}/lista-gastos`, {headers})
+      .pipe(
+        map(resp => resp.gastos)
+      )
+  }
+  
+  addGasto(valor: number, gasto: string, nota: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+      const body = {
+        valor, gasto, nota
+      }
+      console.log(gasto, valor, nota)
+
+    return this.http.post<GastoResponse>(`${this.baseUrl}/gastos`, {...body}, {headers} )
+      .pipe(
+        map(resp => resp.ok),
+        catchError(err => err)
+      )
+  }
+
+  addRetiro(valor: number, nota: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.post<RetiroResponse>(`${this.baseUrl}/retiros`, {valor, nota}, {headers})
+      .pipe(
+        map(resp => resp.ok),
+        catchError(err => err)
+      )
+  }
+
+  getCliente(id: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<GetCliente>(`${this.baseUrl}/clientes/${id}`, {headers});
+  }
+
+  getPagos(id: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos?cliente=${id}`, {headers})
+  }
 }

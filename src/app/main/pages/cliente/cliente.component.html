@@ -1,1 +1,40 @@
-<p>cliente works!</p>
+<div class="main" *ngIf="cliente">
+  <div class="card flex flex-column gap-1">
+
+    <div class="titel">
+      <h1>{{cliente.nombre}}</h1>
+    </div>
+
+    <div class="body">
+
+      <div class="grid">
+        <div class="col">Alias</div>
+        <div class="col">{{cliente.alias}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col">Direccion</div>
+        <div class="col">{{cliente.direccion}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col">Telefono</div>
+        <div class="col">{{cliente.telefono}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col">Dpi</div>
+        <div class="col">{{cliente.dpi}}</div>
+      </div>
+
+      <hr>
+
+      <div class="gri">
+        <h3>Historial de pagos</h3>
+        <app-historial-pagos [id]="cliente.id"></app-historial-pagos>
+      </div>
+
+    </div>
+
+  </div>
+</div>

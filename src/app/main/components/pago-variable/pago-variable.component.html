@@ -1,1 +1,17 @@
-<p>pago-variable works!</p>
+<div class="grid" *ngIf="credito">
+  <div class="col">
+    <p-inputNumber 
+      [showButtons]="true" 
+      inputId="pago"
+      mode="currency"
+      currency="GTQ"
+      locale="es-GT"
+      [formControl]="pago"
+      [min]="1">
+    </p-inputNumber>
+  </div>
+  <div class="col">
+
+  <button pButton label="Pagar" [disabled]="pago.invalid" (click)="pagar()"></button>
+  </div>
+</div>

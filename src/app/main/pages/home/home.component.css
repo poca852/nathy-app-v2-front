@@ -3,7 +3,7 @@
 }
 
 .toolbar{
-  position: absolute;
+  position: fixed;
   background-color: var(--surface-b);
   display: grid;
   justify-content: end;
@@ -21,5 +21,6 @@
 }
 
 /* .content{
+  1775100
   margin-top: 125px;
 } */

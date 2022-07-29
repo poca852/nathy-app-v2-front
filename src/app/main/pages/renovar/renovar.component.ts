@@ -3,6 +3,7 @@ import { MainService } from '../../services/main.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import { ConfirmationService, ConfirmEventType, MessageService } from 'primeng/api';
 
 interface Cliente {
   valor_credito: number;
@@ -20,11 +21,13 @@ interface Cliente {
 @Component({
   selector: 'app-renovar',
   templateUrl: './renovar.component.html',
-  styleUrls: ['./renovar.component.css']
+  styleUrls: ['./renovar.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class RenovarComponent implements OnInit {
 
   idCliente: string = ''
+  position: string = '';
 
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [500, [Validators.required, Validators.min(0)]],
@@ -32,13 +35,17 @@ export class RenovarComponent implements OnInit {
     total_cuotas: [20, [Validators.required, Validators.min(0)]],
     saldo: []
   })
+
+  // messageService: any;
   
   
 
   constructor(private mainService: MainService,
               private router: Router,
               private aR: ActivatedRoute,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.aR.params
@@ -88,4 +95,17 @@ export class RenovarComponent implements OnInit {
     return Math.round(total / this.creditoForm.get('total_cuotas')?.value);
   }
 
+  confirm(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target,
+        message: 'Desea continuar?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.crearCredito()
+        },
+        reject: () => {
+            this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+        }
+    });
+}
 }

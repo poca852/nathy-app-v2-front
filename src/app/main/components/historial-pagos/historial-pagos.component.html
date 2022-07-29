@@ -1,0 +1,14 @@
+<p-table [value]="pagos" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Fecha</th>
+          <th>valor</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-pago>
+      <tr>
+          <td>{{pago.fecha}}</td>
+          <td>{{pago.valor | currency:'GTQ'}}</td>
+      </tr>
+  </ng-template>
+</p-table>

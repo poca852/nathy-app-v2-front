@@ -8,6 +8,24 @@ export interface CreditoResponse{
   credito: Credito
 }
 
+export interface Caja {
+  fecha:               string;
+  base:                number;
+  inversion:           number;
+  retiro:              number;
+  gasto:               number;
+  cobro:               number;
+  prestamo:            number;
+  total_clientes:      number;
+  clientes_pendientes: number;
+  renovaciones:        number;
+  caja_final:          number;
+  ruta:                string;
+  pretendido: number;
+  efectividad: number;
+  id:                  string;
+}
+
 export interface Credito {
   pagos:         Pagos[];
   status:        boolean;
@@ -54,6 +72,11 @@ export interface Pago {
   cliente: string;
 }
 
+export interface GetPagosInterface {
+  ok: boolean;
+  pagos: Pago[]
+}
+
 
 export interface ClienteResponse {
   ok: boolean;
@@ -73,3 +96,66 @@ export interface ClienteResponse {
   }]
 }
 
+export interface InversionResponse {
+  ok: boolean;
+  inversion: Inversion
+}
+
+export interface Inversion {
+  fecha:  string;
+  id:     string;
+  valor:  number;
+  nota:   string;
+  ruta:   string;
+}
+
+export interface ListaGastoResponse {
+  ok: boolean;
+  gastos: Gasto[];
+}
+
+export interface Gasto{
+  id: string;
+  gasto: string;
+}
+
+export interface GastoResponse {
+  ok: boolean;
+  gato: Gasto;
+}
+
+export interface Gasto {
+  id: string;
+  gasto: string;
+  valor: number;
+  nota?: string;
+  ruta: string;
+}
+
+export interface RetiroResponse {
+  ok: boolean;
+  retiro: Retiro;
+}
+
+export interface Retiro {
+  id: string;
+  valor: number;
+  fecha: string;
+  nota?: string;
+  ruta: string;
+}
+
+export interface GetCliente {
+  ok: boolean,
+  cliente: {
+    dpi: string;
+    nombre: string;
+    alias: string;
+    ciudad: string;
+    direccion: string;
+    telefono: string;
+    ruta: string;
+    creditos: string[];
+    id: string;
+  }
+}

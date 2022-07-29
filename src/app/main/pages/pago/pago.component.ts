@@ -28,7 +28,6 @@ export class PagoComponent implements OnInit {
         switchMap(({id}) => this.mainService.getCredito(id))
       )
       .subscribe(({credito}) => {
-        console.log(credito)
         this.credito = credito
       })
 

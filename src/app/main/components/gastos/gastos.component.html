@@ -1,0 +1,37 @@
+<div class="main flex justify-content-center">
+  <div class="card surface-overlay">
+    <div class="title">
+      <h2>Gasto</h2>
+    </div>
+    <div class="body card-container flex flex-column ustify-content-center gap-2">
+
+      <p-dropdown
+        [options]="gastos"
+        optionValue="id"
+        [formControl]="gasto"
+        optionLabel="gasto"> 
+      </p-dropdown>
+
+      <p-inputNumber
+        mode="currency"
+        class="w-full"
+        currency="GTQ"
+        [formControl]="valor"
+        locale="es-GT"
+        [min]="0"
+        placeholder="Ejemplo: Q.30.00">
+      </p-inputNumber>
+
+      <textarea 
+        pInputTextarea
+        cols="30"
+        rows="5"
+        [formControl]="nota"
+        [autoResize]="true"
+        placeholder="Nota"></textarea>
+     
+      <button pButton label="Guardar" (click)="confirm($event)"></button>
+    </div>
+  </div>
+</div>
+<p-confirmPopup></p-confirmPopup>

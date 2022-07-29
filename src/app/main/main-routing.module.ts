@@ -14,6 +14,9 @@ import { ClienteComponent } from './pages/cliente/cliente.component';
 import { CajaComponent } from './pages/caja/caja.component';
 import { VerificadosComponent } from './pages/verificados/verificados.component';
 import { RenovarComponent } from './pages/renovar/renovar.component';
+import { InversionesComponent } from './components/inversiones/inversiones.component';
+import { GastosComponent } from './components/gastos/gastos.component';
+import { RetirosComponent } from './components/retiros/retiros.component';
 
 const routes: Routes = [
   {
@@ -58,7 +61,25 @@ const routes: Routes = [
       },
       {
         path: 'oficina',
-        component: OficinaComponent
+        component: OficinaComponent,
+        children: [
+          {
+            path: 'inversiones',
+            component: InversionesComponent
+          },
+          {
+            path: 'gastos',
+            component: GastosComponent
+          },
+          {
+            path: 'retiros',
+            component: RetirosComponent
+          },
+          {
+            path: '**',
+            redirectTo: 'gastos'
+          }
+        ]
       },
       {
         path: '**',

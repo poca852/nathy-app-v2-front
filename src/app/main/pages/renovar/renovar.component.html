@@ -1,5 +1,5 @@
 <div class="main">
-  <form [formGroup]="creditoForm" (ngSubmit)="crearCredito()">
+  <form [formGroup]="creditoForm" (ngSubmit)="confirm($event)">
     <div class="card card-container flex flex-column">
       <div class="grid p-fluid">
 
@@ -45,3 +45,6 @@
     </div>
   </form>
 </div>
+<!-- <p-toast></p-toast> -->
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>

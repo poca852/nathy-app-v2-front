@@ -1,1 +1,27 @@
-<p>oficina works!</p>
+<div class="main">
+  <div class="grid">
+
+    <div 
+      class="col flex justify-content-center flex-wrap border-white border-500 surface-overlay"
+      routerLink="/main/oficina/inversiones"
+      routerLinkActive="active">
+      <i class="pi pi-chart-line"></i>
+    </div>
+
+    <div 
+      class="col flex justify-content-center border-white border-500 surface-overlay"
+      routerLink="/main/oficina/gastos"
+      routerLinkActive="active">
+      <i class="pi pi-wallet"></i>
+    </div>
+
+    <div 
+      class="col flex justify-content-center border-white border-500 surface-overlay"
+      routerLink="/main/oficina/retiros"
+      routerLinkActive="active">
+      <i class="pi pi-send"></i>
+    </div>
+
+  </div>
+  <router-outlet></router-outlet>
+</div>

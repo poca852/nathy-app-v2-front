@@ -1,1 +1,70 @@
-<p>caja works!</p>
+<div class="main" *ngIf="caja">
+  <div class="flex flex-column justify-content-center">
+
+    <div class="grid">
+      <div class="col">Fecha: </div>
+      <div class="col">{{caja.fecha}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Base: </div>
+      <div class="col">{{caja.base | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Inversion: </div>
+      <div class="col">{{caja.inversion | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Retiro: </div>
+      <div class="col">{{caja.retiro | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Gastos: </div>
+      <div class="col">{{caja.gasto | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Pretendido: </div>
+      <div class="col">{{caja.pretendido | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Cobro: </div>
+      <div class="col">{{caja.cobro | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Prestamo: </div>
+      <div class="col">{{caja.prestamo | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Clientes: </div>
+      <div class="col">{{caja.total_clientes}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Clientes Pendientes: </div>
+      <div class="col">{{caja.clientes_pendientes}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Renovaciones: </div>
+      <div class="col">{{caja.renovaciones}}</div>
+    </div>
+
+    <div class="grid">
+      <div class="col">Efectividad: </div>
+      <div class="col">% {{caja.efectividad}}</div>
+    </div>
+    
+    <div class="grid">
+      <div class="col">Caja final: </div>
+      <div class="col">{{caja.caja_final | currency:'GTQ'}}</div>
+    </div>
+
+  </div>
+</div>

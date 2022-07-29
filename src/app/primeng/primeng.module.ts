@@ -13,6 +13,11 @@ import {CardModule} from 'primeng/card';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {DropdownModule} from 'primeng/dropdown';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ToastModule} from 'primeng/toast';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {TableModule} from 'primeng/table';
+
 
 
 
@@ -31,7 +36,11 @@ import {DropdownModule} from 'primeng/dropdown';
     TieredMenuModule,
     RadioButtonModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    ConfirmPopupModule,
+    ToastModule,
+    InputTextareaModule,
+    TableModule
   ]
 })
 export class PrimengModule { }

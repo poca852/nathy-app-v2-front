@@ -1,0 +1,10 @@
+.main{
+  margin-top: 20px;
+}
+
+.card{
+  background-color: var(--surface-b);
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+}

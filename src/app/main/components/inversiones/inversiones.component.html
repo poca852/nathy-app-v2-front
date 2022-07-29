@@ -1,0 +1,28 @@
+<div class="main flex justify-content-center">
+  <div class="card surface-overlay">
+    <div class="title">
+      <h2>Inversion</h2>
+    </div>
+    <div class="body card-container flex flex-column ustify-content-center gap-2">
+      <p-inputNumber
+        mode="currency"
+        class="w-full"
+        currency="GTQ"
+        [formControl]="valor"
+        locale="es-GT"
+        [min]="0"
+        placeholder="Ejemplo: Q.30.00"
+      >
+      </p-inputNumber>
+      <textarea 
+        cols="30" 
+        rows="5"
+        [formControl]="nota"
+        placeholder="Ejemplo: Inversion por reajuste de caja" 
+        pInputTextarea
+        [autoResize]="true"></textarea>
+        <button pButton label="Guardar" (click)="confirm($event)" [disabled]="valor.invalid"></button>
+    </div>
+  </div>
+</div>
+<p-confirmPopup></p-confirmPopup>

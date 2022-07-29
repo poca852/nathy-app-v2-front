@@ -18,6 +18,10 @@ import { PagoFijoComponent } from './components/pago-fijo/pago-fijo.component';
 import { PagoVariableComponent } from './components/pago-variable/pago-variable.component';
 import { VerificadosComponent } from './pages/verificados/verificados.component';
 import { RenovarComponent } from './pages/renovar/renovar.component';
+import { InversionesComponent } from './components/inversiones/inversiones.component';
+import { RetirosComponent } from './components/retiros/retiros.component';
+import { GastosComponent } from './components/gastos/gastos.component';
+import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
 
 
 @NgModule({
@@ -35,7 +39,11 @@ import { RenovarComponent } from './pages/renovar/renovar.component';
     PagoFijoComponent,
     PagoVariableComponent,
     VerificadosComponent,
-    RenovarComponent
+    RenovarComponent,
+    InversionesComponent,
+    RetirosComponent,
+    GastosComponent,
+    HistorialPagosComponent
   ],
   imports: [
     CommonModule,

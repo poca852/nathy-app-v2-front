@@ -66,7 +66,8 @@
           *ngIf="pagoSeleccionado.value === 'fijo'"
           [credito]="credito"
           ></app-pago-fijo>
-        <app-pago-variable *ngIf="pagoSeleccionado.value === 'variable'"></app-pago-variable>
+        <app-pago-variable *ngIf="pagoSeleccionado.value === 'variable'"
+                            [credito]="credito"></app-pago-variable>
       </div>
     </ng-template>
     
