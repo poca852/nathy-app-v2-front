@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Credito } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
@@ -20,7 +20,8 @@ export class PagoComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainService: MainService,
-              private fb: FormBuilder ) { }
+              private fb: FormBuilder,
+              private router: Router ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params

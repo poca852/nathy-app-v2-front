@@ -18,7 +18,7 @@ export class CajaComponent implements OnInit {
   ngOnInit(): void {
     this.mainService.getCaja()
       .subscribe(resp => {
-        this.caja = resp;
+        this.caja = resp.caja;
       })
   }
 

@@ -11,6 +11,7 @@ import * as moment from 'moment';
 export class VerificadosComponent implements OnInit {
 
   creditos: Credito[] = [];
+  hoy: string = moment().utc(true).format('DD/MM/YYYY');
 
   constructor(private mainService: MainService) { }
 
@@ -24,7 +25,7 @@ export class VerificadosComponent implements OnInit {
   creditosVerificados(creditos: Credito[]): Credito[] {
     let arr: Credito[] = []
     creditos.forEach(credito => {
-      if(credito.ultimo_pago.includes(moment().format('DD/MM/YYYY'))){
+      if(credito.ultimo_pago.includes(this.hoy)){
         arr.unshift(credito)
       }
     })

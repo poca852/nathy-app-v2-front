@@ -1,6 +1,18 @@
-<div class="toolbar">
-  <button pButton icon="pi pi-bars" class="btn-menu" (click)="menu = true"></button>
-</div>
+<p-toolbar class="toolbar" *ngIf="user && ruta">
+  <div class="p-toolbar-group-left">
+    <p class="text-layout">
+      {{user.nombre | titlecase}} / 
+      {{this.ruta.nombre | titlecase}}
+    </p> 
+  </div>
+  <div class="p-toolbar-group-right">
+    <button 
+      pButton 
+      icon="pi pi-bars" 
+      class="btn-menu p-button-outlined p-button-secondary" 
+      (click)="menu = true"></button>
+  </div>
+</p-toolbar>
 <p-sidebar [(visible)]="menu" [baseZIndex]="10000" [blockScroll]='true'>
   <div class="flex flex-column">
     <div class="pointer flex align-items-center justify-content-center h-2rem font-bold text-white border-round m-2"
@@ -17,7 +29,6 @@
   </div>
 </p-sidebar>
 <!-- aqui ira el buscador -->
-<router-outlet></router-outlet>
-
-
-
+<div class="main">
+  <router-outlet></router-outlet>
+</div>

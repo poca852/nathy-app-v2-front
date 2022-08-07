@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/auth/interface/auth.interface';
+import { Ruta } from '../../interfaces/main.interfaces';
+import { MainService } from '../../services/main.service';
 
 interface Menu {
   ruta: string;
@@ -16,10 +19,20 @@ export class HomeComponent implements OnInit {
 
   menu!: boolean;
   itemsMenu: Menu[] = []
+  ruta: Ruta;
+
+  get user(){
+    return this.authService.user;
+  }
+
   constructor( private authService: AuthService,
-                private router: Router ) { }
+                private router: Router,
+                private mainService: MainService ) { }
 
   ngOnInit(): void {
+
+    this.mainService.getRuta(this.user.ruta)
+      .subscribe(resp => this.ruta = resp.ruta);
 
     this.itemsMenu = [
       {

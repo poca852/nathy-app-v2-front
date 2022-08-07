@@ -1,76 +1,115 @@
-<div class="main">
-  <p-card 
-    *ngIf="credito"
-    [header]="credito.cliente.alias | titlecase">
-    <div class="grid">
-      <div class="col">Prestado</div>
-      <div class="col">{{credito.valor_credito | currency:'GTQ'}}</div>
+<div class="main card text-layout p-3" *ngIf="credito; else loading">
+  <div class="card-container overflow-hidden flex flex-column gap-1 justify-content-center">
+
+    <div class="header grid flex align-items-center">
+      <div class="col">
+        <h3>{{credito.cliente.nombre | titlecase}}</h3>
+      </div>
+
+      <div class="col flex justify-content-end">
+        <button pButton icon="pi pi-arrow-left" class="p-button-danger p-button-sm p-button-outlined" label="Volver"
+          routerLink="['/main/rutero']"></button>
+      </div>
     </div>
 
     <div class="grid">
-      <div class="col">Total a Pagar</div>
-      <div class="col">{{credito.total_pagar | currency:'GTQ'}}</div>
+      <div class="col">
+        <hr>
+      </div>
     </div>
 
-    <div class="grid">
-      <div class="col">Abonos</div>
-      <div class="col">{{credito.abonos | currency:'GTQ'}}</div>
+    <div class="info">
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Prestado</div>
+        <div class="col">{{credito.valor_credito | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Total a Pagar</div>
+        <div class="col">{{credito.total_pagar | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Abonos</div>
+        <div class="col">{{credito.abonos | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Saldo</div>
+        <div class="col">{{credito.saldo | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Fecha</div>
+        <div class="col">{{credito.fecha_inicio}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Valor Cuota</div>
+        <div class="col">{{credito.valor_cuota | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Cuotas Pendientes</div>
+        <div class="col">{{(credito.saldo / credito.valor_cuota) | number:'1.2-2'}}</div>
+      </div>
+
     </div>
 
-    <div class="grid">
-      <div class="col">Saldo</div>
-      <div class="col">{{credito.saldo | currency:'GTQ'}}</div>
-    </div>
-
-    <div class="grid">
-      <div class="col">Fecha</div>
-      <div class="col">{{credito.fecha_inicio}}</div>
-    </div>
-
-    <div class="grid">
-      <div class="col">Valor Cuota</div>
-      <div class="col">{{credito.valor_cuota | currency:'GTQ'}}</div>
-    </div>
-
-    <div class="grid">
-      <div class="col">Cuotas Pendientes</div>
-      <div class="col">{{(credito.saldo / credito.valor_cuota) | number:'1.2-2'}}</div>
-    </div>
-
-    <ng-template pTemplate="footer">
+    <div class="footer mt-2">
       <div class="grid">
         <div class="col">Pago:</div>
         <div class="col">
           <div class="field-radiobutton">
-            <p-radioButton 
-              name="tipopago" 
-              value="fijo" 
-              inputId="fijo"
-              [formControl]="pagoSeleccionado"></p-radioButton>
+            <p-radioButton name="tipopago" value="fijo" inputId="fijo" [formControl]="pagoSeleccionado">
+            </p-radioButton>
             <label for="fijo">Fijo</label>
           </div>
         </div>
         <div class="col">
           <div class="field-radiobutton">
-            <p-radioButton 
-              name="tipopago" 
-              value="variable" 
-              inputId="variable"
-              [formControl]="pagoSeleccionado"></p-radioButton>
+            <p-radioButton name="tipopago" value="variable" inputId="variable" [formControl]="pagoSeleccionado">
+            </p-radioButton>
             <label for="variable">Variable</label>
           </div>
         </div>
       </div>
       <div class="grid">
-        <app-pago-fijo 
-          *ngIf="pagoSeleccionado.value === 'fijo'"
-          [credito]="credito"
-          ></app-pago-fijo>
-        <app-pago-variable *ngIf="pagoSeleccionado.value === 'variable'"
-                            [credito]="credito"></app-pago-variable>
+        <app-pago-fijo *ngIf="pagoSeleccionado.value === 'fijo'" [credito]="credito"></app-pago-fijo>
+        <app-pago-variable *ngIf="pagoSeleccionado.value === 'variable'" [credito]="credito"></app-pago-variable>
       </div>
-    </ng-template>
-    
-  </p-card>
+    </div>
 
+    <div class="historial mt-3">
+      <div class="title">
+        <h3>Historial</h3>
+        <hr>
+      </div>
+      <div class="table">
+        <p-table [value]="credito.pagos" responsiveLayout="scroll" styleClass="p-datatable-striped">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Fecha</th>
+              <th>Valor</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-pago>
+            <tr>
+              <td>{{pago.fecha}}</td>
+              <td>{{pago.valor | currency:'GTQ'}}</td>
+            </tr>
+          </ng-template>
+          
+        </p-table>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<ng-template #loading>
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</ng-template>

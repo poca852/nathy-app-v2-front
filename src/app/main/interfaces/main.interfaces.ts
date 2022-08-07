@@ -8,6 +8,11 @@ export interface CreditoResponse{
   credito: Credito
 }
 
+export interface CajaResponse {
+  ok: boolean;
+  caja: Caja;
+}
+
 export interface Caja {
   fecha:               string;
   base:                number;
@@ -158,4 +163,23 @@ export interface GetCliente {
     creditos: string[];
     id: string;
   }
+}
+
+export interface RutaResponse {
+    ok: boolean,
+    ruta: Ruta
+}
+
+export interface Ruta {
+  nombre: string;
+  ciudad: string;
+  cartera: number;
+  total_cobrado: number;
+  total_prestado: number;
+  gastos: string[];
+  inversiones: string[];
+  empleados: string[];
+  creditos: string[];
+  clientes: [];
+  id: string;
 }

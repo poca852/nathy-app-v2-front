@@ -17,6 +17,8 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ToastModule} from 'primeng/toast';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TableModule} from 'primeng/table';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 
 
 
@@ -40,7 +42,8 @@ import {TableModule} from 'primeng/table';
     ConfirmPopupModule,
     ToastModule,
     InputTextareaModule,
-    TableModule
+    TableModule,
+    ProgressSpinnerModule
   ]
 })
 export class PrimengModule { }

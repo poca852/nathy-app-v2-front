@@ -10,3 +10,11 @@ html, body{
 .text-layout{
   color: var(--text-color);
 }
+
+.loading{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  width: 100%;
+}

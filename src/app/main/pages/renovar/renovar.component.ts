@@ -32,8 +32,7 @@ export class RenovarComponent implements OnInit {
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [500, [Validators.required, Validators.min(0)]],
     interes: [20, [Validators.required, Validators.min(0)]],
-    total_cuotas: [20, [Validators.required, Validators.min(0)]],
-    saldo: []
+    total_cuotas: [20, [Validators.required, Validators.min(0)]]
   })
 
   // messageService: any;
@@ -53,23 +52,12 @@ export class RenovarComponent implements OnInit {
   }
 
   crearCredito() {
-    const cliente: Cliente = {
-      valor_credito: this.creditoForm.get('valor_credito')?.value,
-      interes: this.creditoForm.get('interes')?.value,
-      total_cuotas: this.creditoForm.get('total_cuotas')?.value,
-      abonos: 0,
-      total_pagar: this.getTotalCredito(this.creditoForm.get('valor_credito')?.value, this.creditoForm.get('interes')?.value),
-  
-      saldo: this.getTotalCredito(this.creditoForm.get('valor_credito')?.value, this.creditoForm.get('interes')?.value),
-  
-      valor_cuota: this.getValorCuota(this.creditoForm.get('valor_credito')?.value, this.creditoForm.get('interes')?.value),
-      fecha_inicio: moment().format('DD/MM/YYYY'),
-      cliente: this.idCliente,
-      ultimo_pago: ''
-    }
-    
     if(this.creditoForm.valid){
-      this.mainService.addCredito(cliente)
+      this.mainService.addCredito( 
+        this.idCliente, 
+        this.creditoForm.get('valor_credito').value,
+        this.creditoForm.get('interes').value,
+        this.creditoForm.get('total_cuotas').value)
         .subscribe(resp => {
           if(resp === true){
             this.router.navigateByUrl('/main/rutero')
