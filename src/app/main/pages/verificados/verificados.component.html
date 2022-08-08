@@ -2,14 +2,16 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Cliente</th>
+      <th>Abono</th>
       <th>Saldo</th>
       <th>C. Pendientes</th>
     </tr>
   </ng-template>
   
   <ng-template pTemplate="body" let-credito>
-    <tr [routerLink]="['/main/pago', credito.id]">
+    <tr>
       <td>{{credito.cliente.alias | titlecase}}</td>
+      <td>{{credito.pagos[0].valor | currency:'GTQ' }}</td>
       <td>{{credito.saldo | currency:'GTQ'}}</td>
       <td>{{(credito.saldo / credito.valor_cuota) | number:'1.2-2'}}</td>
     </tr>
