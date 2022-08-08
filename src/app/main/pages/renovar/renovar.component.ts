@@ -3,7 +3,7 @@ import { MainService } from '../../services/main.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { ConfirmationService, ConfirmEventType, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 interface Cliente {
   valor_credito: number;
@@ -68,21 +68,6 @@ export class RenovarComponent implements OnInit {
     }
   }
 
-  getTotalCredito(num1: number, num2: number): number {
-    let valor = num1;
-    let interes = num2;
-
-    return (valor * interes)  / 100 + valor;
-  }
-
-  getValorCuota(num1: number, num2: number):number{
-    let valor = num1;
-    let interes = num2;
-    let total = (valor * interes) / 100 + valor;
-
-    return Math.round(total / this.creditoForm.get('total_cuotas')?.value);
-  }
-
   confirm(event: Event) {
     this.confirmationService.confirm({
         target: event.target,
@@ -95,5 +80,5 @@ export class RenovarComponent implements OnInit {
             this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
         }
     });
-}
+  }
 }

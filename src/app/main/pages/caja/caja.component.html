@@ -2,73 +2,84 @@
   <div class="flex flex-column justify-content-center">
 
     <div class="grid">
-      <div class="col">Fecha: </div>
+      <div class="col flex justify-content-end">Fecha: </div>
       <div class="col">{{caja.fecha}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Base: </div>
+      <div class="col flex justify-content-end">Base: </div>
       <div class="col">{{caja.base | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Inversion: </div>
+      <div class="col flex justify-content-end">Inversion: </div>
       <div class="col">{{caja.inversion | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Retiro: </div>
+      <div class="col flex justify-content-end">Retiro: </div>
       <div class="col">{{caja.retiro | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Gastos: </div>
+      <div class="col flex justify-content-end">Gastos: </div>
       <div class="col">{{caja.gasto | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Pretendido: </div>
+      <div class="col flex justify-content-end">Pretendido: </div>
       <div class="col">{{caja.pretendido | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Cobro: </div>
+      <div class="col flex justify-content-end">Cobro: </div>
       <div class="col">{{caja.cobro | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Prestamo: </div>
+      <div class="col flex justify-content-end">Prestamo: </div>
       <div class="col">{{caja.prestamo | currency:'GTQ'}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Clientes: </div>
+      <div class="col flex justify-content-end">Clientes: </div>
       <div class="col">{{caja.total_clientes}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Clientes Pendientes: </div>
+      <div class="col flex justify-content-end">Clientes Pendientes: </div>
       <div class="col">{{caja.clientes_pendientes}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Renovaciones: </div>
+      <div class="col flex justify-content-end">Renovaciones: </div>
       <div class="col">{{caja.renovaciones}}</div>
     </div>
 
     <div class="grid">
-      <div class="col">Efectividad: </div>
+      <div class="col flex justify-content-end">Efectividad: </div>
       <div class="col">% {{caja.efectividad}}</div>
     </div>
     
     <div class="grid">
-      <div class="col">Caja final: </div>
+      <div class="col flex justify-content-end">Caja final: </div>
       <div class="col">{{caja.caja_final | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid mt-2">
+      <button
+        class="col"
+        pButton
+        label="Cerrar Ruta"
+        (click)="confirm($event)"
+      >
+
+      </button>
     </div>
 
   </div>
 </div>
-
+<p-confirmPopup></p-confirmPopup>
 <ng-template #loading>
   <div class="loading">
     <p-progressSpinner></p-progressSpinner>

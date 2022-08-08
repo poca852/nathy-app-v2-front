@@ -183,3 +183,7 @@ export interface Ruta {
   clientes: [];
   id: string;
 }
+
+export interface RutaClose {
+  ok: boolean
+}

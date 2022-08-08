@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
-import { CajaResponse, RutaResponse } from '../interfaces/main.interfaces';
+import { CajaResponse, RutaResponse, RutaClose } from '../interfaces/main.interfaces';
 
 // interfaces
 import {  CreditosResponse,
@@ -164,5 +164,12 @@ export class MainService {
       .set('x-token', this.token)
 
     return this.http.get<RutaResponse>(`${this.baseUrl}/rutas/${id}`, {headers})
+  }
+
+  closeRuta(id:string){
+    const headers = new HttpHeaders()
+      .set('x-token', this.token);
+
+    return this.http.patch<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {}, {headers});
   }
 }
