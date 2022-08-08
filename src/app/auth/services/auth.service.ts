@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthResponse, UserLogin, User } from '../interface/auth.interface';
+import { MainService } from 'src/app/main/services/main.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { AuthResponse, UserLogin, User } from '../interface/auth.interface';
 export class AuthService {
 
   private baseUrl = environment.baseUrl;
-  private _user!: User;
+  private _user: User | null;
 
   get user(){
     return {...this._user};
@@ -48,6 +49,8 @@ export class AuthService {
   }
 
   logout(){
+    this._user = null;
     localStorage.clear();
+    window.location.reload();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { Credito } from '../../interfaces/main.interfaces';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import * as moment from 'moment';
   templateUrl: './rutero.component.html',
   styleUrls: ['./rutero.component.css']
 })
-export class RuteroComponent implements OnInit {
+export class RuteroComponent implements OnInit, OnDestroy {
 
   termino: string = '';
   hayError: boolean = false;
@@ -24,6 +24,13 @@ export class RuteroComponent implements OnInit {
       .subscribe(resp => {
         this.creditos = this.creditosVerificados(resp.creditos);
       })
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.creditos = [];
+    console.log('adios')
   }
 
   creditosVerificados(creditos: Credito[]): Credito[] {

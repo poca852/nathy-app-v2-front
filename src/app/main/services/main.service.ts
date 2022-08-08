@@ -26,8 +26,12 @@ export class MainService {
 
   private baseUrl: string = environment.baseUrl;
   private token: string = localStorage.getItem('token') || '';
+  // private ruta: string = ''
 
-  constructor( private http: HttpClient ) { }
+  constructor(  private http: HttpClient,
+                private authService: AuthService ) { 
+                // this.ruta = this.authService.user.ruta;
+                }
 
   getCreditos(): Observable<CreditosResponse>{
     const headers = new HttpHeaders()
