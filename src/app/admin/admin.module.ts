@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { PrimengModule } from '../primeng/primeng.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { ResumenComponent } from './pages/resumen/resumen.component';
 
 
 @NgModule({
   declarations: [
+    LoginComponent,
+    ResumenComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    AdminRoutingModule,
-    PrimengModule
+    AdminRoutingModule
   ]
 })
 export class AdminModule { }
