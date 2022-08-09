@@ -45,7 +45,8 @@ export interface Credito {
   cliente:       Cliente;
   ruta:          string;
   id:            string;
-  ultimo_pago: string;
+  _id?:          string;
+  ultimo_pago:   string;
 }
 
 export interface Pagos{
@@ -60,7 +61,7 @@ export interface Cliente {
   ciudad:    string;
   direccion: string;
   telefono:  string;
-  nombre: string;
+  nombre:    string;
 }
 
 export interface PagoResponse {
@@ -73,8 +74,8 @@ export interface Pago {
   fecha: string;
   valor: number;
   ruta: string;
-  credito: string;
-  cliente: string;
+  credito: Credito;
+  cliente: Cliente;
 }
 
 export interface GetPagosInterface {

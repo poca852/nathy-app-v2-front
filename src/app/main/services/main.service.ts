@@ -8,16 +8,19 @@ import { AuthService } from '../../auth/services/auth.service';
 import { CajaResponse, RutaResponse, RutaClose } from '../interfaces/main.interfaces';
 
 // interfaces
-import {  CreditosResponse,
-          CreditoResponse, 
-          PagoResponse, 
-          ClienteResponse, 
-          InversionResponse, 
-          ListaGastoResponse, 
-          GastoResponse, 
-          RetiroResponse, 
-          GetCliente, 
-          GetPagosInterface } from '../interfaces/main.interfaces';
+import {
+  CreditosResponse,
+  CreditoResponse,
+  PagoResponse,
+  ClienteResponse,
+  InversionResponse,
+  ListaGastoResponse,
+  GastoResponse,
+  RetiroResponse,
+  GetCliente,
+  GetPagosInterface
+} from '../interfaces/main.interfaces';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,62 +31,62 @@ export class MainService {
   private token: string = localStorage.getItem('token') || '';
   // private ruta: string = ''
 
-  constructor(  private http: HttpClient,
-                private authService: AuthService ) { 
-                // this.ruta = this.authService.user.ruta;
-                }
+  constructor(private http: HttpClient,
+    private authService: AuthService) {
+    // this.ruta = this.authService.user.ruta;
+  }
 
-  getCreditos(): Observable<CreditosResponse>{
+  getCreditos(): Observable<CreditosResponse> {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.get<CreditosResponse>(`${this.baseUrl}/creditos`, {headers})
+    return this.http.get<CreditosResponse>(`${this.baseUrl}/creditos`, { headers })
   }
 
-  getCreditoByName(query: string): Observable<CreditosResponse>{
+  getCreditoByName(query: string): Observable<CreditosResponse> {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
     return this.http.get<CreditosResponse>(`${this.baseUrl}/buscar/creditos`)
   }
 
-  getCredito(id: string): Observable<CreditoResponse>{
+  getCredito(id: string): Observable<CreditoResponse> {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.get<CreditoResponse>(`${this.baseUrl}/creditos/${id}`, {headers})
+    return this.http.get<CreditoResponse>(`${this.baseUrl}/creditos/${id}`, { headers })
   }
 
   addPago(credito: string, valor: number): Observable<PagoResponse> {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.post<PagoResponse>(`${this.baseUrl}/pagos/${credito}`, {valor}, {headers})
+    return this.http.post<PagoResponse>(`${this.baseUrl}/pagos/${credito}`, { valor }, { headers })
   }
 
-  addCliente(cliente: any){
+  addCliente(cliente: any) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente, {headers})
+    return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err.errors.error)
       )
   }
 
-  getClientes(q: boolean){
+  getClientes(q: boolean) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.get<ClienteResponse>(`${this.baseUrl}/clientes?status=${q}`, {headers})
+    return this.http.get<ClienteResponse>(`${this.baseUrl}/clientes?status=${q}`, { headers })
   }
 
-  addCredito(idClinete: string, valor_credito: number, interes: number, total_cuotas: number){
+  addCredito(idClinete: string, valor_credito: number, interes: number, total_cuotas: number) {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.post<CreditoResponse>(`${this.baseUrl}/creditos/${idClinete}`, {valor_credito, interes, total_cuotas}, {headers})
+    return this.http.post<CreditoResponse>(`${this.baseUrl}/creditos/${idClinete}`, { valor_credito, interes, total_cuotas }, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err.errors.error.msg)
@@ -94,40 +97,40 @@ export class MainService {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.get<CajaResponse>(`${this.baseUrl}/caja`, {headers})
+    return this.http.get<CajaResponse>(`${this.baseUrl}/caja`, { headers })
   }
 
-  addInversion(valor: number, nota: string){
+  addInversion(valor: number, nota: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.post<InversionResponse>(`${this.baseUrl}/inversiones`, {valor, nota}, {headers})
+    return this.http.post<InversionResponse>(`${this.baseUrl}/inversiones`, { valor, nota }, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err.errors.error.msg)
       )
   }
 
-  getListaGastos(){
+  getListaGastos() {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.get<ListaGastoResponse>(`${this.baseUrl}/lista-gastos`, {headers})
+    return this.http.get<ListaGastoResponse>(`${this.baseUrl}/lista-gastos`, { headers })
       .pipe(
         map(resp => resp.gastos)
       )
   }
-  
-  addGasto(valor: number, gasto: string, nota: string){
+
+  addGasto(valor: number, gasto: string, nota: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-      const body = {
-        valor, gasto, nota
-      }
-      console.log(gasto, valor, nota)
+    const body = {
+      valor, gasto, nota
+    }
+    console.log(gasto, valor, nota)
 
-    return this.http.post<GastoResponse>(`${this.baseUrl}/gastos`, {...body}, {headers} )
+    return this.http.post<GastoResponse>(`${this.baseUrl}/gastos`, { ...body }, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err)
@@ -138,7 +141,7 @@ export class MainService {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.post<RetiroResponse>(`${this.baseUrl}/retiros`, {valor, nota}, {headers})
+    return this.http.post<RetiroResponse>(`${this.baseUrl}/retiros`, { valor, nota }, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err)
@@ -149,27 +152,34 @@ export class MainService {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.get<GetCliente>(`${this.baseUrl}/clientes/${id}`, {headers});
+    return this.http.get<GetCliente>(`${this.baseUrl}/clientes/${id}`, { headers });
   }
 
   getPagos(id: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos?cliente=${id}`, {headers})
+    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos?cliente=${id}`, { headers })
   }
 
-  getRuta(id: string){
+  getAllPagos() {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos`, {headers})
+  }
+
+  getRuta(id: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.get<RutaResponse>(`${this.baseUrl}/rutas/${id}`, {headers})
+    return this.http.get<RutaResponse>(`${this.baseUrl}/rutas/${id}`, { headers })
   }
 
-  closeRuta(id:string){
+  closeRuta(id: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token);
 
-    return this.http.patch<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {}, {headers});
+    return this.http.patch<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {}, { headers });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
-import { Credito } from '../../interfaces/main.interfaces';
+import { Credito, Pago } from '../../interfaces/main.interfaces';
 import * as moment from 'moment';
 
 @Component({
@@ -10,28 +10,19 @@ import * as moment from 'moment';
 })
 export class VerificadosComponent implements OnInit {
 
-  creditos: Credito[] = [];
+  // creditos: Credito[] = [];
+  pagos: Pago[] = [];
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
 
   constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
-    this.mainService.getCreditos()
+    this.mainService.getAllPagos()
       .subscribe(resp => {
-        this.creditos = this.creditosVerificados(resp.creditos);
+        this.pagos = resp.pagos
       })
   }
 
-  creditosVerificados(creditos: Credito[]): Credito[] {
-    let arr: Credito[] = []
-    creditos.forEach(credito => {
-      if(credito.ultimo_pago.includes(this.hoy)){
-        arr.unshift(credito)
-      }
-    })
-
-    return arr;
-  }
 
   buscar(eve: any){
     
