@@ -22,6 +22,7 @@ import { InversionesComponent } from './components/inversiones/inversiones.compo
 import { RetirosComponent } from './components/retiros/retiros.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
+import { CreditoTableComponent } from './components/credito-table/credito-table.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { HistorialPagosComponent } from './components/historial-pagos/historial-
     InversionesComponent,
     RetirosComponent,
     GastosComponent,
-    HistorialPagosComponent
+    HistorialPagosComponent,
+    CreditoTableComponent
   ],
   imports: [
     CommonModule,

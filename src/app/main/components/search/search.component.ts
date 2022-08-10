@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, Subject } from 'rxjs';
 
 @Component({
@@ -13,28 +13,28 @@ export class SearchComponent implements OnInit {
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
   @Input() placeholder: string = '';
 
-  debuncer: Subject<string> = new Subject();
+  debouncer: Subject<string> = new Subject();
 
   form: FormGroup = this.fb.group({
-    termino: ['', Validators.required]
+    termino: ['']
   })
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.debuncer
+    this.debouncer
       .pipe(debounceTime(300))
       .subscribe(valor => {
-        this.onDebounce.emit(valor)
-      })
+      this.onDebounce.emit(valor)
+    })
   }
 
   buscar(){
-    this.onEnter.emit(this.form.value)
+    this.onEnter.emit(this.form.get('termino').value)
   }
 
   teclaPresionada(){
-    this.debuncer.next(this.form.value)
+    this.debouncer.next(this.form.get('termino').value)
   }
 
 }

@@ -43,11 +43,14 @@ export class MainService {
     return this.http.get<CreditosResponse>(`${this.baseUrl}/creditos`, { headers })
   }
 
-  getCreditoByName(query: string): Observable<CreditosResponse> {
+  getCreditoByName(query: string){
+    if(query === ''){
+      query = 'all';
+    }
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.get<CreditosResponse>(`${this.baseUrl}/buscar/creditos`)
+    return this.http.get<CreditosResponse>(`${this.baseUrl}/buscar/creditos/${query}`, {headers});
   }
 
   getCredito(id: string): Observable<CreditoResponse> {

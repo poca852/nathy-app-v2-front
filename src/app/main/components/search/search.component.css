@@ -1,8 +1,8 @@
 .main{
-  position: absolute;
+  /* position: absolute; */
   background-color: var(--surface-b);
   padding: 10px;
-  top: 50px;
+  /* top: 125px; */
   display: grid;
   justify-content: center;
   left: 0;right:0;
