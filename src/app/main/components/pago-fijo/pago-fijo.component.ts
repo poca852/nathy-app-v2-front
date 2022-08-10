@@ -17,6 +17,7 @@ interface Pago{
 export class PagoFijoComponent implements OnInit {
 
   @Input() credito!: Credito 
+  loading: boolean = false;
 
   pagoSeleccionado: FormControl = this.fb.control( null, Validators.required )
 
@@ -44,11 +45,14 @@ export class PagoFijoComponent implements OnInit {
   }
 
   pagar(){
+    this.loading = true
     this.mainService.addPago(this.credito.id, this.pagoSeleccionado.value)
       .subscribe(resp => {
         if(resp.ok){
           this.router.navigateByUrl('/main')
+          this.loading = false
         }
+        this.loading = false
       })
   }
 

@@ -14,6 +14,8 @@ export class PagoComponent implements OnInit {
 
   credito!: Credito;
 
+  loading: boolean = false;
+
   pagoSeleccionado: FormControl = this.fb.control('')
 
   formaPago: any[] = [{name: 'fijo', key: 'A'}, {name: 'variable', key: 'b'}]

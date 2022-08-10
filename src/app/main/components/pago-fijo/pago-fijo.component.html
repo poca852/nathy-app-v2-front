@@ -9,7 +9,6 @@
     </p-dropdown>
   </div>
   <div class="col">
-
-    <button pButton label="Pagar" (click)="pagar()"></button>
+    <button pButton label="Pagar" (click)="pagar()" [disabled]="loading"></button>
   </div>
 </div>
