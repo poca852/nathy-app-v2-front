@@ -13,21 +13,17 @@ export class VerificadosComponent implements OnInit {
   // creditos: Credito[] = [];
   pagos: Pago[] = [];
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
+  loading: boolean = false;
 
   constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
+    this.loading = true
     this.mainService.getAllPagos()
       .subscribe(resp => {
+        this.loading = false;
         this.pagos = resp.pagos
       })
   }
-
-
-  buscar(eve: any){
-    
-  }
-
-  sugerencias(eve: any){}
 
 }

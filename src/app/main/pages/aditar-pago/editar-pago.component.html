@@ -1,0 +1,37 @@
+<div class="card text-layout" *ngIf="pago">
+  <div class="contenedor p-3 card-container flex flex-column justify-content-center gap-2">
+      <div class="header grid flex align-items-center">
+        <div class="col">
+          <h3>{{pago.cliente.alias}}</h3>
+        </div>
+        <div class="col flex justify-content-end">
+          <button pButton icon="pi pi-arrow-left" class="p-button-danger p-button-sm p-button-outlined" label="Volver" [routerLink]="['/main/verificados']"></button>
+        </div>
+      </div>
+
+
+      <div>
+        <h3>Pago Actual: {{pago.valor | currency:'GTQ'}}</h3>
+      </div>
+
+      <div class="content">
+        <div class="grid">
+          <div class="col">Nuevo Pago</div>
+          <div class="col">
+            <p-inputNumber
+              [formControl]='valor'
+              mode="currency"
+              currency="GTQ"
+              locale="es-GT"
+              [showButtons]="true"
+            >
+            </p-inputNumber>
+          </div>
+          <div class="col">
+            <button pButton label="Pagar" [disabled]="loading" (click)="pagar()"></button>
+          </div>
+          <p-messages></p-messages>
+        </div>
+      </div>
+  </div>
+</div>

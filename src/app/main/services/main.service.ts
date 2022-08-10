@@ -165,6 +165,22 @@ export class MainService {
     return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos?cliente=${id}`, { headers })
   }
 
+  // get pago de un cliente
+  getPago(id: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<PagoResponse>(`${this.baseUrl}/pagos/${id}`, {headers})
+  }
+
+  // para actualizar el pago
+  updatePago(id: string, valor: number){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.patch<PagoResponse>(`${this.baseUrl}/pagos/${id}`, {valor}, {headers})
+  }
+
   getAllPagos() {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');

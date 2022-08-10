@@ -23,6 +23,7 @@ import { RetirosComponent } from './components/retiros/retiros.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
 import { CreditoTableComponent } from './components/credito-table/credito-table.component';
+import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CreditoTableComponent } from './components/credito-table/credito-table.
     RetirosComponent,
     GastosComponent,
     HistorialPagosComponent,
-    CreditoTableComponent
+    CreditoTableComponent,
+    EditarPagoComponent
   ],
   imports: [
     CommonModule,

@@ -18,3 +18,7 @@ html, body{
   height: 40vh;
   width: 100%;
 }
+
+.pointer{
+  cursor: pointer;
+}

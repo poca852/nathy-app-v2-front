@@ -4,7 +4,7 @@
   responsiveLayout="scroll">
 
   <ng-template pTemplate="body" let-credito>
-    <tr [routerLink]="['/main/pago', credito.id]">
+    <tr [routerLink]="['/main/pago', credito.id]" class="pointer">
       <td>{{credito.cliente.alias | titlecase}}</td>
       <td>{{credito.saldo | currency:'GTQ'}}</td>
     </tr>
