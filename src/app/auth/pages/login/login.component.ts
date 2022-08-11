@@ -12,6 +12,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  loading: boolean = false;
+
   formLogin: FormGroup = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
@@ -26,15 +28,23 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+    this.loading = true
     this.messageService.clear();
-    this.authService.login(this.formLogin.value)
-      .subscribe(resp => {
-        if(resp === true){
-          this.router.navigateByUrl('/main')
-        }else{
-          this.messageService.add({severity:'error', summary: resp });
-        }
-      })
+    if(this.formLogin.valid){
+      this.authService.login(this.formLogin.value)
+        .subscribe(resp => {
+          if(resp === true){
+            this.router.navigateByUrl('/main')
+            this.loading = false;
+          }else{
+            this.messageService.add({severity:'error', summary: resp });
+            this.loading = false;
+          }
+        })
+    }else{
+      this.messageService.add({severity: 'error', summary: 'Ingresa Tus datos'})
+      this.loading = false;
+    }
   }
 
 }

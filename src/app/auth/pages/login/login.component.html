@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" *ngIf="!loading">
   <form (submit)="login()" [formGroup]="formLogin">
     <div class="grid">
       <div class="p-inputgroup">
@@ -28,10 +28,17 @@
         label="Ingresar" 
         type="submit" 
         class="col-12"
-        [disabled]="formLogin.invalid"></button>
+        [disabled]="loading"></button>
     </div>
   
   </form>
+</div>
+
+<div 
+  class="loading flex flex-column justify-content-center"
+  *ngIf="loading">
+  <p-progressSpinner></p-progressSpinner>
+  <h3 class="text-layout">Espere...</h3>
 </div>
 
 <p-messages></p-messages>
