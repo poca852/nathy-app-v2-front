@@ -1,0 +1,21 @@
+<div class="card flex flex-column" *ngIf="!loading">
+
+  <!-- menu -->
+  <app-sidebar></app-sidebar>
+
+  <!-- header -->
+  <div class="header flex align-items-center flex-row justify-content-between">
+    <app-btn-volver [backBtn]="'/admin/home'"></app-btn-volver>
+    <h3 class="text-layout">Ruta: {{ruta.nombre | titlecase}}</h3>
+  </div>
+
+  <!-- content -->
+  <div class="flex">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+
+<div class="loading" *ngIf="loading">
+  <p-progressSpinner></p-progressSpinner>
+</div>

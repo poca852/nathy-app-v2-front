@@ -1,1 +1,18 @@
-<p>resumen works!</p>
+<div class="main_resumen flex flex-column justify-content-center">
+
+  <!-- menu -->
+  <app-sidebar></app-sidebar>
+
+  <div class="rutas">
+
+    <h3 class="text-layout">Rutas:</h3>
+
+    <div class="flex flex-column justify-content-center gap-3">
+      <div *ngFor="let ruta of rutas">
+        <app-resumen-ruta [ruta]="ruta"></app-resumen-ruta>
+      </div>
+    </div>
+
+  </div>
+
+</div>

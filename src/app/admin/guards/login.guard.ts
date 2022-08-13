@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AdminService } from '../services/admin.service';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
-
+export class LoginGuard implements CanActivate {
   constructor( 
     private adminService: AdminService,
     private router: Router
@@ -18,10 +17,11 @@ export class AdminGuard implements CanActivate {
     return this.adminService.revalidarToken()
       .pipe(
         tap(valid => {
-          if(!valid){
-            this.router.navigateByUrl('/admin/login')
+          if(valid){
+            this.router.navigateByUrl('/admin/home')
           }
-        })
+        }),
+        map(valid => !valid)
       )
   }
   
