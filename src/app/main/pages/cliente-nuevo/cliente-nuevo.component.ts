@@ -7,15 +7,11 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cliente-nuevo',
   templateUrl: './cliente-nuevo.component.html',
-  styles: [
-    `
-    .main{
-      margin-top: 60px;
-    }
-    `
-  ]
+  styles: []
 })
 export class ClienteNuevoComponent implements OnInit {
+
+  loading: boolean = false;
 
   formCliente: FormGroup = this.fb.group({
     dpi: ['', [Validators.required]],
@@ -34,13 +30,16 @@ export class ClienteNuevoComponent implements OnInit {
   }
 
   guardar(){
+    this.loading = true
     if(this.formCliente.valid){
       this.mainService.addCliente(this.formCliente.value)
-        .subscribe(ok => {
-          if(ok === true){
+      .subscribe(ok => {
+        if(ok === true){
+            this.loading = false
             this.router.navigateByUrl('/main/renovaciones')
           }
         })
+      this.loading = false
     }
   }
 
