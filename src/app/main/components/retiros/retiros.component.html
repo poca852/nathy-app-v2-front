@@ -1,4 +1,4 @@
-<div class="main flex justify-content-center">
+<div class="main flex justify-content-center" *ngIf="!loading">
   <div class="card surface-overlay">
     <div class="title">
       <h2>Retiro</h2>
@@ -21,8 +21,17 @@
         placeholder="Nota" 
         pInputTextarea
         [autoResize]="true"></textarea>
-        <button pButton label="Guardar" (click)="confirm($event)" [disabled]="valor.invalid"></button>
+        
+        <button 
+          pButton 
+          label="Guardar" 
+          (click)="confirm($event)" 
+          [disabled]="loading"></button>
     </div>
   </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <p-progressSpinner></p-progressSpinner>
 </div>
 <p-confirmPopup></p-confirmPopup>

@@ -47,7 +47,7 @@ import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
     GastosComponent,
     HistorialPagosComponent,
     CreditoTableComponent,
-    EditarPagoComponent
+    EditarPagoComponent,
   ],
   imports: [
     CommonModule,

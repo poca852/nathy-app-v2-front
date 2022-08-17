@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class RetirosComponent implements OnInit {
 
+  loading: boolean = false;
+
   valor: FormControl = this.fb.control(null, [Validators.required, Validators.min(0)]);
   nota: FormControl = this.fb.control('');
 
@@ -24,28 +26,29 @@ export class RetirosComponent implements OnInit {
   }
 
   crearRetiro(){
+    this.loading = true
     if(this.valor.valid){
       this.mainService.addRetiro(this.valor.value, this.nota.value)
         .subscribe(resp => {
           if(resp === true){
-            this.router.navigateByUrl('/main')
+            this.router.navigateByUrl('/main/caja')
+            this.loading = false;
           }
         })
     }
   }
 
   confirm(event: Event) {
-    this.confirmationService.confirm({
-        target: event.target,
-        message: 'Desea continuar?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.crearRetiro()
-        },
-        reject: () => {}
-        //     this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-        // }
-    });
+    if(this.valor.valid){
+      this.confirmationService.confirm({
+          target: event.target,
+          message: 'Desea continuar?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+              this.crearRetiro()
+          }
+      });
+    }
   }
 
 }

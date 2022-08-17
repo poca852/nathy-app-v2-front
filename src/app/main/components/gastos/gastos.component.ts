@@ -14,7 +14,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 export class GastosComponent implements OnInit {
 
   gastos: Gasto[] = [];
-
+  loading: boolean = false;
 
   valor: FormControl = this.fb.control( null, [Validators.required])
   gasto: FormControl = this.fb.control('', [Validators.required])
@@ -34,30 +34,32 @@ export class GastosComponent implements OnInit {
   }
 
   crearGasto(){
+    this.loading = true;
     if(this.valor.valid && this.gasto.valid){
       this.mainService.addGasto(this.valor.value, this.gasto.value, this.nota.value)
         .subscribe(resp => {
           if(resp === true){
-            this.router.navigateByUrl('/main')
+            this.router.navigateByUrl('/main/caja')
+            this.loading = false
           }else{
             console.log(resp)
+            this.loading = false
           }
         })
     }
   }
 
   confirm(event: Event) {
-    this.confirmationService.confirm({
-        target: event.target,
-        message: 'Desea continuar?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.crearGasto()
-        },
-        reject: () => {
-            
-        }
-    });
+    if(this.valor.valid && this.gasto.valid){
+      this.confirmationService.confirm({
+          target: event.target,
+          message: 'Desea continuar?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+              this.crearGasto()
+          }
+      });
+    }
   }
 
 }
