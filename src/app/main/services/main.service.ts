@@ -153,7 +153,7 @@ export class MainService {
 
   getCliente(id: string) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
     return this.http.get<GetCliente>(`${this.baseUrl}/clientes/${id}`, { headers });
   }

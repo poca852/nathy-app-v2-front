@@ -1,50 +1,56 @@
-<div class="main">
-  <form [formGroup]="creditoForm" (ngSubmit)="confirm($event)">
-    <div class="card card-container flex flex-column">
-      <div class="grid p-fluid">
+<div class="main text-layout flex flex-column">
+  <div class="flex flex-row justify-content-between align-items-center">
+    <button
+      pButton
+      routerLink="/main/rutero"
+      class="p-button-text p-button-secondary"
+      icon="pi pi-arrow-left"
+    ></button>
 
-        <div class="field col-12">
-          <label for="valor">Valor</label>
-          <p-inputNumber 
-            [showButtons]="true" 
-            inputId="valor" 
-            mode="currency"
-            currency="GTQ"
-            locale="es-GT"
-            formControlName="valor_credito"
-            [min]="0">
-          </p-inputNumber>
-        </div>
+    <h3>Renovando a {{cliente?.nombre | titlecase }}({{cliente.alias | titlecase}}) </h3>
+  </div>
+  <form 
+    [formGroup]="creditoForm" 
+    (ngSubmit)="confirm($event)">
 
-        <div class="field col-12">
-          <label for="valor">Interes</label>
-          <p-inputNumber 
-            [showButtons]="true" 
-            inputId="interes" 
-            formControlName="interes"
-            prefix="%"
-            [min]="0">
-          </p-inputNumber>
-        </div>
+    <div class="flex flex-column gap-2">
 
-        <div class="field col-12">
-          <label for="valor">Cuotas</label>
-          <p-inputNumber 
-            [showButtons]="true" 
-            inputId="cuotas" 
-            formControlName="total_cuotas"
-            [min]="0">
-          </p-inputNumber>
-        </div>
-
-        <div class="field col-12">
-          <button pButton type="submit" label="Ingresar" [disabled]="creditoForm.invalid"></button>
-        </div>
-
+      <input 
+        type="number"
+        pInputText
+        [min]="1"
+        placeholder="Valor Credito, Ejemplo: 1000"
+        formControlName="valor_credito" />
+    
+      <div class="flex flex-row gap-1">
+        <input 
+          pInputText
+          class="w-6"
+          type="number"
+          placeholder="Interes, Ejemplo: 20"
+          formControlName="interes"
+          [min]="1" />
+  
+        <input
+          class="w-6"
+          pInputText
+          type="number"
+          placeholder="Cuotas, Ejemplo: 20"
+          formControlName="total_cuotas"
+          [min]="1" />
       </div>
+    
+      <div class="flex flex-wrap">
+        <button 
+          pButton 
+          class="w-full"
+          type="submit" 
+          label="Ingresar" 
+          [disabled]="creditoForm.invalid"></button>
+      </div>
+
     </div>
   </form>
 </div>
 <!-- <p-toast></p-toast> -->
-<p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>

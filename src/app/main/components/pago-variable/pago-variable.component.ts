@@ -21,7 +21,7 @@ export class PagoVariableComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.pago.reset(0);
+    // this.pago.reset(0);
   }
 
   pagar() {

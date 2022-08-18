@@ -56,12 +56,13 @@ export interface Pagos{
 }
 
 export interface Cliente {
-  _id:       string;
-  alias:     string;
-  ciudad:    string;
-  direccion: string;
-  telefono:  string;
-  nombre:    string;
+  _id?:       string;
+  id?:        string;
+  alias:      string;
+  ciudad:     string;
+  direccion:  string;
+  telefono:   string;
+  nombre:     string;
 }
 
 export interface PagoResponse {

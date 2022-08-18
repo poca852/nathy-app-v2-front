@@ -1,5 +1,5 @@
-<div class="grid" *ngIf="credito">
-  <div class="col">
+<div class="flex flex-row justify-content-center" *ngIf="credito">
+  <div>
     <p-dropdown
       [options]="pago"
       [formControl]="pagoSeleccionado"
@@ -8,7 +8,7 @@
     > 
     </p-dropdown>
   </div>
-  <div class="col">
+  <div>
     <button pButton label="Pagar" (click)="pagar()" [disabled]="loading"></button>
   </div>
 </div>
