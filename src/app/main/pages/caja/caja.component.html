@@ -58,7 +58,7 @@
 
     <div class="grid">
       <div class="col flex justify-content-end">Efectividad: </div>
-      <div class="col">% {{caja.efectividad}}</div>
+      <div class="col">% {{(caja.cobro * 100) / caja.pretendido}}</div>
     </div>
     
     <div class="grid">
