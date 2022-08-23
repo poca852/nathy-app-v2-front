@@ -19,7 +19,7 @@ export class RenovarComponent implements OnInit, OnDestroy {
 
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [null, [Validators.required, Validators.min(1)]],
-    interes: [null, [Validators.required, Validators.min(1)]],
+    interes: [null, [Validators.required, Validators.min(0)]],
     total_cuotas: [null, [Validators.required, Validators.min(1)]]
   })
 
