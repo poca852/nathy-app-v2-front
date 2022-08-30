@@ -1,0 +1,15 @@
+@media (max-width: 960px){
+  div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  div input{
+    width: 100%;
+  }
+
+  div button{
+    width: 100%;
+  }
+}
