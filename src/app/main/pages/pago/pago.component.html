@@ -55,6 +55,11 @@
         <div class="col">{{(credito.saldo / credito.valor_cuota) | number:'1.2-2'}}</div>
       </div>
 
+      <div class="grid" *ngIf="credito.notas">
+        <div class="col flex justify-content-end">Observaciones</div>
+        <div class="col">{{credito.notas}}</div>
+      </div>
+
     </div>
 
     <div class="footer mt-2">

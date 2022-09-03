@@ -47,6 +47,7 @@ export interface Credito {
   id:            string;
   _id?:          string;
   ultimo_pago:   string;
+  notas?:        string
 }
 
 export interface Pagos{

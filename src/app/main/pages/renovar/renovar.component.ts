@@ -20,7 +20,8 @@ export class RenovarComponent implements OnInit, OnDestroy {
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [null, [Validators.required, Validators.min(1)]],
     interes: [null, [Validators.required, Validators.min(0)]],
-    total_cuotas: [null, [Validators.required, Validators.min(1)]]
+    total_cuotas: [null, [Validators.required, Validators.min(1)]],
+    notas: ['']
   })
 
   constructor(private mainService: MainService,
@@ -49,7 +50,8 @@ export class RenovarComponent implements OnInit, OnDestroy {
         this.cliente.id,
         this.creditoForm.get('valor_credito').value,
         this.creditoForm.get('interes').value,
-        this.creditoForm.get('total_cuotas').value)
+        this.creditoForm.get('total_cuotas').value,
+        this.creditoForm.get('notas').value)
         .subscribe(resp => {
           if (resp === true) {
             this.router.navigateByUrl('/main/rutero')

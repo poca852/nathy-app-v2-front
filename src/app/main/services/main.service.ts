@@ -85,11 +85,11 @@ export class MainService {
     return this.http.get<ClienteResponse>(`${this.baseUrl}/clientes?status=${q}`, { headers })
   }
 
-  addCredito(idClinete: string, valor_credito: number, interes: number, total_cuotas: number) {
+  addCredito(idClinete: string, valor_credito: number, interes: number, total_cuotas: number, notas: string) {
     const headers = new HttpHeaders()
       .set('x-token', this.token)
 
-    return this.http.post<CreditoResponse>(`${this.baseUrl}/creditos/${idClinete}`, { valor_credito, interes, total_cuotas }, { headers })
+    return this.http.post<CreditoResponse>(`${this.baseUrl}/creditos/${idClinete}`, { valor_credito, interes, total_cuotas, notas }, { headers })
       .pipe(
         map(resp => resp.ok),
         catchError(err => err.errors.error.msg)

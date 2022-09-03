@@ -39,6 +39,12 @@
           formControlName="total_cuotas"
           [min]="1" />
       </div>
+
+      <input 
+      type="text"
+      pInputTextarea
+      placeholder="Observaciones"
+      formControlName="notas" />
     
       <div class="flex flex-wrap">
         <button 
@@ -48,6 +54,8 @@
           label="Ingresar" 
           [disabled]="creditoForm.invalid"></button>
       </div>
+
+    
 
     </div>
   </form>
