@@ -1,0 +1,30 @@
+<div class="container">
+  <form
+    [formGroup]="formLogin"
+    (ngSubmit)="login()"
+  >
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+      <input 
+        type="text" 
+        pInputText 
+        formControlName="username"
+        placeholder="Usuario">
+    </div>
+
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+      <input 
+        type="password" 
+        pInputText 
+        formControlName="password"
+        placeholder="Contraseña">
+    </div>
+
+    <button 
+      pButton 
+      label="Ingresar" 
+      type="submit"
+      [disabled]="loading"></button>
+  </form>
+</div>

@@ -18,6 +18,7 @@ import {ToastModule} from 'primeng/toast';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TableModule} from 'primeng/table';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {DividerModule} from 'primeng/divider';
 
 
 
@@ -42,7 +43,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastModule,
     InputTextareaModule,
     TableModule,
-    ProgressSpinnerModule
-  ]
+    ProgressSpinnerModule,
+    DividerModule  ]
 })
 export class PrimengModule { }

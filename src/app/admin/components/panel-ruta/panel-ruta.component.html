@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="flex flex-column border-1 p-1">
+    <div class="header flex flex-row justify-content-between">
+      <h3>{{ruta.nombre}}</h3>
+      <button
+        pButton
+        class="p-button-text"
+        [ngClass]="ruta.status ? 'p-button-danger': 'p-button-success'"
+        [label]="ruta.status ? 'Cerrar': 'Abrir'"
+        (click)="ruta.status ? closeRuta() : openRuta()"
+      ></button>
+    </div>
+    <p-divider></p-divider>
+    <div class="content">
+      <div class="grid">
+        <div class="col flex justify-content-end">Cartera</div>
+        <div class="col flex justify-content-start">{{ruta.cartera | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Clientes</div>
+        <div class="col flex jusitfy-content-start">{{ruta.clientes}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Gastos</div>
+        <div class="col flex jusitfy-content-start">{{ruta.gastos | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Inversiones</div>
+        <div class="col flex jusitfy-content-start">{{ruta.inversiones | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Retiros</div>
+        <div class="col flex jusitfy-content-start">{{ruta.retiros | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Total Recaudado</div>
+        <div class="col flex jusitfy-content-start">{{ruta.total_cobrado| currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Total Prestado</div>
+        <div class="col flex jusitfy-content-start">{{ruta.total_prestado | currency:'GTQ'}}</div>
+      </div>
+
+      <div class="grid">
+        <div class="col flex justify-content-end">Estado</div>
+        <div class="col flex jusitfy-content-start">{{ruta.status ? 'Abierta' : 'Cerrada'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

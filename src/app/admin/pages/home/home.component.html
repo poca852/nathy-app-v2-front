@@ -1,0 +1,28 @@
+
+<p-toolbar [ngStyle]="{'position': 'fixed', 'right': 0, 'left': 0, 'top': 0}">
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      class="p-button-outlined"
+      icon="pi pi-bars"
+      (click)="openMenu = !openMenu"
+    ></button>
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <button
+      pButton
+      class="p-button-danger"
+      icon="pi pi-power-off"
+      (click)="logout()"
+    ></button>
+  </div>
+</p-toolbar>
+
+<p-sidebar [(visible)]="openMenu" [baseZIndex]="10000">
+  <h3>Left Sidebar</h3>
+</p-sidebar>
+
+<div class="contenedor">
+  <router-outlet></router-outlet>
+</div>

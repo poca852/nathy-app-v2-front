@@ -10,6 +10,12 @@ const routes: Routes = [
     canActivate: [LoginGuard],
     // canLoad: [LoginGuard]
   },
+
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  
   {
     path: 'main',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule),

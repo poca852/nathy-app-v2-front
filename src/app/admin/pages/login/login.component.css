@@ -1,0 +1,23 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.container form{
+  border: thin solid white;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+@media screen and (max-width: 960px){
+  .container form {
+    width: 200px;
+  }
+}
