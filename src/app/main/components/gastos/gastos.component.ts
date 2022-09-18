@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Gasto } from '../../interfaces/main.interfaces';
+import { Gasto, ListaDeGastos, CrearGasto } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { AuthService } from '../../../auth/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gastos',
@@ -13,17 +16,22 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 })
 export class GastosComponent implements OnInit {
 
-  gastos: Gasto[] = [];
+  gastos: ListaDeGastos[] = [];
   loading: boolean = false;
 
-  valor: FormControl = this.fb.control( null, [Validators.required])
+  valor: FormControl = this.fb.control(null, [Validators.required])
   gasto: FormControl = this.fb.control('', [Validators.required])
-  nota: FormControl = this.fb.control('')
+  nota: FormControl = this.fb.control('');
+  fecha: string = moment().utc(true).format('DD/MM/YYYY');
+
+  get user() {
+    return this.authService.user;
+  }
 
   constructor(private mainService: MainService,
-              private router: Router,
-              private confirmationService: ConfirmationService,
-              private fb: FormBuilder) { }
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.mainService.getListaGastos()
@@ -33,33 +41,42 @@ export class GastosComponent implements OnInit {
 
   }
 
-  crearGasto(){
+  crearGasto() {
     this.loading = true;
-    if(this.valor.valid && this.gasto.valid){
-      this.mainService.addGasto(this.valor.value, this.gasto.value, this.nota.value)
-        .subscribe(resp => {
-          if(resp === true){
-            this.router.navigateByUrl('/main/caja')
-            this.loading = false
-          }else{
-            console.log(resp)
-            this.loading = false
-          }
-        })
-    }
-  }
+    Swal.fire({
+      title: 'Confrmación',
+      text: "¿Esta seguro de agregar este gasto?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let gasto: CrearGasto = {
+          fecha: this.fecha,
+          valor: this.valor.value,
+          gasto: this.gasto.value,
+          idRuta: this.user.ruta,
+          nota: this.nota.value
+        }
+        this.mainService.addGasto(gasto)
+          .subscribe(resp => {
+            if (resp === true) {
+              Swal.fire('Success', 'Gasto agregado correctamente', 'success')
+              this.router.navigateByUrl('/main/caja')
+              this.loading = false
+            } else {
+              Swal.fire('Error', resp.error.errors.valor.msg, 'error')
+              this.loading = false
+            }
+          })
+      } else {
+        this.loading = false
 
-  confirm(event: Event) {
-    if(this.valor.valid && this.gasto.valid){
-      this.confirmationService.confirm({
-          target: event.target,
-          message: 'Desea continuar?',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.crearGasto()
-          }
-      });
-    }
-  }
+      }
+    })
 
+  }
 }

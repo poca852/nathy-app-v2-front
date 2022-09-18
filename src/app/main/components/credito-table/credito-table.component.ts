@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Credito } from '../../interfaces/main.interfaces';
+import { Cliente, Credito } from '../../interfaces/main.interfaces';
 
 @Component({
   selector: 'app-credito-table',

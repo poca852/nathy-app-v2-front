@@ -2,33 +2,38 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
 import { Cliente } from '../../interfaces/main.interfaces';
 import { switchMap } from 'rxjs/operators';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-renovar',
   templateUrl: './renovar.component.html',
   styleUrls: ['./renovar.component.css'],
-  providers: [ConfirmationService]
 })
 export class RenovarComponent implements OnInit, OnDestroy {
 
-  loading: boolean = false;
+  loading: boolean = true;
   cliente: Cliente | null;
+  hoy: string = moment().utc(true).format('DD/MM/YYYY');
 
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [null, [Validators.required, Validators.min(1)]],
     interes: [null, [Validators.required, Validators.min(0)]],
     total_cuotas: [null, [Validators.required, Validators.min(1)]],
-    notas: ['']
+    notas: [''],
+    idRuta: ['', Validators.required],
+    idCliente: ['', Validators.required],
+    fecha: ['', Validators.required]
   })
 
-  constructor(private mainService: MainService,
+  constructor(
+    private mainService: MainService,
     private router: Router,
     private aR: ActivatedRoute,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) { }
+  ) { }
 
 
   ngOnInit(): void {
@@ -36,7 +41,18 @@ export class RenovarComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(({ id }) => this.mainService.getCliente(id))
       )
-      .subscribe(resp => this.cliente = resp.cliente)
+      .subscribe(resp => {
+
+        this.cliente = resp.cliente
+
+        this.creditoForm.reset({
+          idRuta: resp.cliente.ruta,
+          idCliente: resp.cliente.id,
+          fecha: this.hoy
+        })
+        this.loading = false;
+      })
+
   }
 
   ngOnDestroy(): void {
@@ -45,31 +61,36 @@ export class RenovarComponent implements OnInit, OnDestroy {
   }
 
   crearCredito() {
-    if (this.creditoForm.valid) {
-      this.mainService.addCredito(
-        this.cliente.id,
-        this.creditoForm.get('valor_credito').value,
-        this.creditoForm.get('interes').value,
-        this.creditoForm.get('total_cuotas').value,
-        this.creditoForm.get('notas').value)
-        .subscribe(resp => {
-          if (resp === true) {
-            this.router.navigateByUrl('/main/rutero')
-          } else {
-            console.log(resp)
-          }
-        })
-    }
-  }
+    this.loading = true;
+    Swal.fire({
+      title: `Estas renovando a ${this.cliente.nombre}`,
+      text: "Estas seguro que los datos estan correctos?, revertir esto es complicado.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-  confirm(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target,
-      message: 'Desea continuar?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.crearCredito()
+        if (this.creditoForm.valid) {
+          this.mainService.addCredito(this.creditoForm.value)
+            .subscribe(resp => {
+              if (resp === true) {
+                Swal.fire('Success', 'Cliente renovado correctamente', 'success')
+                this.router.navigateByUrl('/main/rutero')
+                this.loading = false;
+              } else {
+                console.log(resp)
+                Swal.fire('Error', resp.error, 'error');
+                this.loading = false;
+              }
+            })
+        }
+      } else {
+        this.loading = false;
       }
-    });
+    })
   }
 }

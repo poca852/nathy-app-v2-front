@@ -33,7 +33,7 @@
       <button 
         pButton 
         label="Guardar" 
-        (click)="confirm($event)"
+        (click)="crearGasto()"
         [disabled]="loading"></button>
     </div>
   </div>
@@ -41,4 +41,3 @@
 <div class="loading" *ngIf="loading">
   <p-progressSpinner></p-progressSpinner>
 </div>
-<p-confirmPopup></p-confirmPopup>

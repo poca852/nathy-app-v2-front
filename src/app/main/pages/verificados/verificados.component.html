@@ -14,7 +14,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-pago>
-    <tr [routerLink]="['/main/pago/editar', pago.id]">
+    <tr [routerLink]="['/main/pago/editar', pago.id]" class="pointer">
       <td>{{pago.cliente.alias | titlecase}}</td>
       <td>{{pago.valor | currency:'GTQ' }}</td>
       <td>{{pago.credito.saldo | currency:'GTQ'}}</td>

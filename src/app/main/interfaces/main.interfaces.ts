@@ -1,78 +1,81 @@
-export interface CreditosResponse {
+// INTERFACES DE CREDITOSW
+export interface Credito {
+  id: string;
+  _id?: string;
+  pagos: Pago[];
+  status: boolean;
+  valor_credito: number;
+  interes: number;
+  total_cuotas: number;
+  total_pagar: number;
+  abonos: number;
+  saldo: number;
+  valor_cuota: number;
+  fecha_inicio: string;
+  cliente: Cliente;
+  ruta: string;
+  ultimo_pago: string;
+  notas?: string;
+}
+
+export interface ResponseSearchCliente {
+  results: Credito[]
+}
+
+export interface ResponseGetAllCreditos {
   ok:       boolean;
   creditos: Credito[];
 }
 
-export interface CreditoResponse{
+export interface ResponseGetOneCredito{
   ok: boolean;
   credito: Credito
 }
 
-export interface CajaResponse {
+export interface FormularioNuevoCredito{
+  interes: number;
+  total_cuotas: number;
+  notas?: string;
+  fecha: string;
+  idRuta: string;
+  valor_credito: number;
+  idCliente: string;
+}
+
+// =========== FIN DE INTERFACES DE CREDITOS
+
+// ========== INTERFACES DE CAJA ============
+
+export interface Caja {
+  id: string;
+  _id?: string;
+  fecha: string;
+  base: number;
+  inversion: number;
+  retiro: number;
+  gasto: number;
+  cobro: number;
+  prestamo: number;
+  total_clientes: number;
+  clientes_pendientes: number;
+  renovaciones: number;
+  caja_final: number
+  pretendido: number
+  extra: number;
+  ruta: Ruta | string;
+}
+
+export interface ResponseGetOneCaja {
   ok: boolean;
   caja: Caja;
 }
 
-export interface Caja {
-  fecha:               string;
-  base:                number;
-  inversion:           number;
-  retiro:              number;
-  gasto:               number;
-  cobro:               number;
-  prestamo:            number;
-  total_clientes:      number;
-  clientes_pendientes: number;
-  renovaciones:        number;
-  caja_final:          number;
-  ruta:                string;
-  pretendido: number;
-  efectividad: number;
-  id:                  string;
-}
+// FIN DE INTERFACES DE CAJA ==============
 
-export interface Credito {
-  pagos:         Pagos[];
-  status:        boolean;
-  valor_credito: number;
-  interes:       number;
-  total_cuotas:  number;
-  total_pagar:   number;
-  abonos:        number;
-  saldo:         number;
-  valor_cuota:   number;
-  fecha_inicio:  string;
-  cliente:       Cliente;
-  ruta:          string;
-  id:            string;
-  _id?:          string;
-  ultimo_pago:   string;
-  notas?:        string
-}
-
-export interface Pagos{
-  _id: string;
-  valor: number;
-  fecha: string;
-}
-
-export interface Cliente {
-  _id?:       string;
-  id?:        string;
-  alias:      string;
-  ciudad:     string;
-  direccion:  string;
-  telefono:   string;
-  nombre:     string;
-}
-
-export interface PagoResponse {
-  ok: boolean,
-  pago: Pago
-}
-
-export interface Pago {
+// PAGOS ==============
+export interface Pago{
   id: string;
+  _id?: string;
   fecha: string;
   valor: number;
   ruta: string;
@@ -80,113 +83,204 @@ export interface Pago {
   cliente: Cliente;
 }
 
-export interface GetPagosInterface {
+export interface ResponseGetPago {
   ok: boolean;
-  pagos: Pago[]
+  pago: Pago;
 }
 
-
-export interface ClienteResponse {
+export interface ResponseGetAllPagos {
   ok: boolean;
-  clientes: [{
-    id: string;
-    status: boolean;
-    state: boolean;
-    dpi: string;
-    nombre: string;
-    alias: string;
-    ciudad: string;
-    direccion: string;
-    telefono: string;
-    img?: string;
-    ruta: string;
-    creditos: Credito[]
-  }]
+  pagos: Pago[];
 }
 
-export interface InversionResponse {
-  ok: boolean;
-  inversion: Inversion
+export interface CrearPagoInterface{
+  valor: number;
+  fecha: string;
+  idRuta: string;
+  idCredito: string;
 }
 
+export interface ActualizarPago {
+  credito: string; 
+  idPago: string;
+  cliente: string; 
+  valor: number;
+  fecha: string; 
+  ruta: string
+}
+
+export interface GetAllPagos {
+  idRuta: string;
+  credito?: string;
+  fecha?: string;
+}
+
+// =?======  PAGOS
+
+// =?======  CLEINTES
+export interface Cliente {
+  id: string;
+  _id?: string;
+  status: boolean;
+  state: boolean;
+  dpi: string;
+  nombre: string;
+  alias: string;
+  ciudad: string;
+  direccion: string;
+  telefono: string;
+  img?: string;
+  ruta: string;
+  creditos: Credito[];
+}
+
+export interface ResponseGetOneCliente {
+  ok: boolean;
+  cliente: Cliente
+}
+
+export interface ResponseGetAllCliente {
+  ok: boolean;
+  clientes: Cliente[]
+}
+// =?======  CLIENTES
+
+// inversion 
 export interface Inversion {
-  fecha:  string;
-  id:     string;
-  valor:  number;
-  nota:   string;
-  ruta:   string;
+  id: string;
+  _id?: string;
+  fecha: string;
+  valor: number;
+  nota?: string;
+  ruta: string;
 }
 
-export interface ListaGastoResponse {
+export interface CrearInversion {
+  valor: number;
+  nota?: string;
+  idRuta: string;
+  fecha: string;
+}
+
+export interface ResponseGetOneInversion {
+  ok: true;
+  inversion: Inversion;
+}
+
+export interface ResponseGetAllInversiones {
   ok: boolean;
-  gastos: Gasto[];
+  inversiones: Inversion[]
+}
+
+// INVERSIONES
+
+// GATOS
+
+export interface ListaDeGastos {
+  id: string;
+  _id?: string;
+  gasto: string;
+}
+
+export interface ResponseGetListaDeGastos {
+  ok: boolean;
+  gastos: ListaDeGastos[]
 }
 
 export interface Gasto{
   id: string;
+  _id?: string;
   gasto: string;
-}
-
-export interface GastoResponse {
-  ok: boolean;
-  gato: Gasto;
-}
-
-export interface Gasto {
-  id: string;
-  gasto: string;
+  fecha: string;
   valor: number;
   nota?: string;
-  ruta: string;
+  ruta: Ruta | string;
 }
 
-export interface RetiroResponse {
+export interface CrearGasto {
+  gasto: string,
+  fecha: string,
+  valor: number,
+  nota?: string,
+  idRuta: string
+}
+
+export interface ResponseGetOneGasto {
+  ok: boolean;
+  gasto: Gasto;
+}
+
+export interface ResponseGetAllGastos {
+  ok: boolean;
+  gastos: Gasto[];
+}
+
+// GASTOS
+
+// RETIROS
+export interface Retiro {
+  id: string;
+  _id?: string;
+  fecha: string;
+  valor: number;
+  nota: string;
+  ruta: Ruta | string;
+}
+
+export interface CrearRetiro {
+  fecha: string,
+  valor: number,
+  nota?: string,
+  idRuta: string;
+}
+
+export interface ResponseGetOneRetiro {
   ok: boolean;
   retiro: Retiro;
 }
 
-export interface Retiro {
-  id: string;
-  valor: number;
-  fecha: string;
-  nota?: string;
-  ruta: string;
+export interface ResponseGetAllRetiro {
+  ok: boolean;
+  retiros: Retiro[];
 }
+// RETIROS
 
-export interface GetCliente {
-  ok: boolean,
-  cliente: {
-    dpi: string;
-    nombre: string;
-    alias: string;
-    ciudad: string;
-    direccion: string;
-    telefono: string;
-    ruta: string;
-    creditos: string[];
-    id: string;
-  }
-}
-
-export interface RutaResponse {
-    ok: boolean,
-    ruta: Ruta
-}
-
+// RUTA
 export interface Ruta {
-  nombre: string;
-  ciudad: string;
-  cartera: number;
-  total_cobrado: number;
-  total_prestado: number;
-  gastos: string[];
-  inversiones: string[];
-  empleados: string[];
-  creditos: string[];
-  clientes: [];
   id: string;
+  _id?: string;
+  nombre: string;
+  clientes: number;
+  clientes_activos: number;
+  gastos: number;
+  inversiones: number;
+  retiros: number;
+  ciudad: string; 
+  cartera: number;
+  total_cobrado: number
+  total_prestado: number;
+  status: boolean;
+  ultimo_cierre: string;
+  ultima_apertura: string;
+  ingresar_gastos_cobrador: boolean;
+  caja_actual: string | Caja;
+  ultima_caja: string | Caja;
+}
+
+export interface ResponseGetOneRuta {
+  ok: boolean;
+  ruta: Ruta;
+}
+
+export interface ResponseGetAllRutas {
+  ok: boolean;
+  rutas: Ruta[];
 }
 
 export interface RutaClose {
   ok: boolean
 }
+// RUTA
+
+
+

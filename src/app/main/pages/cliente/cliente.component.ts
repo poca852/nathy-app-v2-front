@@ -2,18 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
-
-interface Cliente {
-  dpi: string;
-  nombre: string;
-  alias: string;
-  ciudad: string;
-  direccion: string;
-  telefono: string;
-  ruta: string;
-  creditos: string[];
-  id: string;
-}
+import { Cliente } from '../../interfaces/main.interfaces';
 
 @Component({
   selector: 'app-cliente',
@@ -34,7 +23,9 @@ export class ClienteComponent implements OnInit {
         switchMap(({id}) => this.mainService.getCliente(id)),
         map(resp => resp.cliente)
       )
-      .subscribe(resp => this.cliente = resp)
+      .subscribe(resp => {
+        this.cliente = resp
+      })
   }
 
 }

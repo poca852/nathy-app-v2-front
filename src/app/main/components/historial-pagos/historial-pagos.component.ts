@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Pago } from '../../interfaces/main.interfaces';
+import { Pago, GetAllPagos } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
+import * as moment from 'moment';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-historial-pagos',
@@ -9,14 +11,21 @@ import { MainService } from '../../services/main.service';
 })
 export class HistorialPagosComponent implements OnInit {
 
-  @Input() id: string = '';
-
+  @Input() idCliente: string = '';
+  @Input() idCredito: string = '';
   pagos: Pago[] = []
+  fecha: string = moment().utc(true).format('DD/MM/YYYY');
 
-  constructor(private mainService: MainService) { }
+  get user(){
+    return this.authService.user;
+  }
+
+  constructor(
+    private mainService: MainService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.mainService.getPagos(this.id)
+    this.mainService.getPagos(this.idCliente, this.idCredito)
       .subscribe(resp => {
         if(resp.ok){
           this.pagos = resp.pagos

@@ -1,3 +1,5 @@
+import { Ruta } from 'src/app/main/interfaces/main.interfaces';
+import { Rol } from '../../admin/interfaces/admin.interfaces';
 // esta es la respuesta cuando se hace un login, obtenemos el ok, el usuario y el token
 export interface AuthResponse {
   ok: boolean;
@@ -7,22 +9,13 @@ export interface AuthResponse {
 
 export interface User {
   id: string;
+  _id?: string;
   nombre: string;
-  rol: {
-    _id: string;
-    rol: string;
-  };
+  rol: Rol;
   estado: boolean;
   ruta: string;
   username: string;
 }
-
-export interface Ruta {
- _id: string;
- nombre: string;
- ciudad: string
-}
-
 
 // esta interfaces me ayuda a ver como luce la informacion que tengo que enviar para hacer el login correctamente
 export interface UserLogin {

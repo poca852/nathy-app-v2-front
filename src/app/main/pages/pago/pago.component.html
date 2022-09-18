@@ -3,7 +3,9 @@
 
     <div class="header grid flex align-items-center">
       <div class="col">
-        <h3>{{credito.cliente.nombre | titlecase}}</h3>
+        <a [routerLink]="['/main/cliente', credito.cliente._id]" class="text-layout">
+          <h3>{{credito.cliente.nombre | titlecase}}</h3>
+        </a>
       </div>
 
       <div class="col flex justify-content-end">

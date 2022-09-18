@@ -1,3 +1,10 @@
 .main{
   margin-top: 60px;
 }
+
+.title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -2,7 +2,10 @@
   <div class="contenedor p-3 card-container flex flex-column justify-content-center gap-2">
       <div class="header grid flex align-items-center">
         <div class="col">
-          <h3>{{pago.cliente.alias}}</h3>
+          <h3 
+            [routerLink]="['/main/cliente', pago.cliente._id]"
+            class="pointer">{{pago.cliente.nombre}}
+          </h3>
         </div>
         <div class="col flex justify-content-end">
           <button pButton icon="pi pi-arrow-left" class="p-button-danger p-button-sm p-button-outlined" label="Volver" [routerLink]="['/main/verificados']"></button>
@@ -18,20 +21,25 @@
         <div class="grid">
           <div class="col">Nuevo Pago</div>
           <div class="col">
-            <p-inputNumber
+            <input
+              type="number"
+              pInputText
               [formControl]='valor'
-              mode="currency"
-              currency="GTQ"
-              locale="es-GT"
-              [showButtons]="true"
-            >
-            </p-inputNumber>
+              placeholder="Ingresa el nuevo pago"
+            />
           </div>
           <div class="col">
             <button pButton label="Pagar" [disabled]="loading" (click)="pagar()"></button>
           </div>
-          <p-messages></p-messages>
         </div>
       </div>
+  </div>
+
+  <div class="historial">
+    <h3>Historial de pagos</h3>
+    <app-historial-pagos
+      [idCredito]="pago.credito._id"
+      [idCliente]="pago.cliente._id"
+    ></app-historial-pagos>
   </div>
 </div>

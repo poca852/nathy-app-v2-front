@@ -1,21 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
-import { Credito } from '../../interfaces/main.interfaces';
-
-interface Cliente {
-  id: string;
-  status: boolean;
-  state: boolean;
-  dpi: string;
-  nombre: string;
-  alias: string;
-  ciudad: string;
-  direccion: string;
-  telefono: string;
-  img?: string;
-  ruta: string;
-  creditos: Credito[]
-}
+import { Cliente, Credito } from '../../interfaces/main.interfaces';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-renovaciones',
@@ -30,10 +16,17 @@ export class RenovacionesComponent implements OnInit {
 
   clientes!: Cliente[];
 
-  constructor(private mainService: MainService) { }
+  get user(){
+    return this.authService.user;
+  }
+
+  constructor(
+    private mainService: MainService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.mainService.getClientes(false)
+    this.mainService.getClientes(false, this.user.ruta)
       .subscribe(resp => {
         this.clientes = resp.clientes
       })

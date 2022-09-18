@@ -1,7 +1,8 @@
 <p-table 
   [value]="creditos" 
   styleClass="p-datatable-striped" 
-  responsiveLayout="scroll">
+  responsiveLayout="scroll"
+  *ngIf="creditos">
 
   <ng-template pTemplate="body" let-credito>
     <tr [routerLink]="['/main/pago', credito.id]" class="pointer">

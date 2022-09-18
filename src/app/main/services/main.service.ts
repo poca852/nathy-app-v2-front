@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../../auth/services/auth.service';
-import { CajaResponse, RutaResponse, RutaClose } from '../interfaces/main.interfaces';
 
 // interfaces
-import {
-  CreditosResponse,
-  CreditoResponse,
-  PagoResponse,
-  ClienteResponse,
-  InversionResponse,
-  ListaGastoResponse,
-  GastoResponse,
-  RetiroResponse,
-  GetCliente,
-  GetPagosInterface
-} from '../interfaces/main.interfaces';
+import { ResponseGetAllCreditos, ResponseGetOneCredito, ResponseGetPago, ResponseGetOneCliente, ResponseGetAllCliente, ResponseGetOneCaja, ResponseGetOneInversion, ResponseGetListaDeGastos, ResponseGetOneGasto, ResponseGetOneRetiro, ResponseGetAllPagos, ResponseGetOneRuta, RutaClose, FormularioNuevoCredito, ResponseSearchCliente, CrearPagoInterface, CrearInversion, CrearRetiro, CrearGasto, ActualizarPago, GetAllPagos } from '../interfaces/main.interfaces';
+
+
 
 
 @Injectable({
@@ -28,126 +16,131 @@ import {
 export class MainService {
 
   private baseUrl: string = environment.baseUrl;
-  private token: string = localStorage.getItem('token') || '';
   // private ruta: string = ''
 
-  constructor(private http: HttpClient,
-    private authService: AuthService) {
+  constructor(private http: HttpClient) {
     // this.ruta = this.authService.user.ruta;
   }
 
-  getCreditos(): Observable<CreditosResponse> {
+  getCreditos(status: boolean, ruta: string){
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<CreditosResponse>(`${this.baseUrl}/creditos`, { headers })
+    const params = new HttpParams()
+      .append('status', status)
+      .append('idRuta', ruta)
+
+    return this.http.get<ResponseGetAllCreditos>(`${this.baseUrl}/creditos`, { headers, params })
   }
 
   getCreditoByName(query: string){
-    if(query === ''){
-      query = 'all';
-    }
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.get<CreditosResponse>(`${this.baseUrl}/buscar/creditos/${query}`, {headers});
+    if(query === ''){
+      query = 'all'
+    }
+
+    return this.http.get<ResponseSearchCliente>(`${this.baseUrl}/buscar/creditos/${query}`, {headers});
   }
 
-  getCredito(id: string): Observable<CreditoResponse> {
+  getCredito(id: string){
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.get<CreditoResponse>(`${this.baseUrl}/creditos/${id}`, { headers })
+    return this.http.get<ResponseGetOneCredito>(`${this.baseUrl}/creditos/${id}`, { headers })
   }
 
-  addPago(credito: string, valor: number): Observable<PagoResponse> {
+  addPago(pago: CrearPagoInterface){
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.post<PagoResponse>(`${this.baseUrl}/pagos/${credito}`, { valor }, { headers })
+    return this.http.post<ResponseGetPago>(`${this.baseUrl}/pagos/${pago.idCredito}`, pago, { headers })
   }
 
   addCliente(cliente: any) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente, { headers })
+    return this.http.post<ResponseGetOneCliente>(`${this.baseUrl}/clientes`, cliente, { headers })
       .pipe(
         map(resp => resp.ok),
-        catchError(err => err.errors.error)
+        catchError(err => of(err))
       )
   }
 
-  getClientes(q: boolean) {
+  getClientes(status: boolean, idRuta: string) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<ClienteResponse>(`${this.baseUrl}/clientes?status=${q}`, { headers })
+    const params = new HttpParams()
+      .append('status', status);
+
+    return this.http.get<ResponseGetAllCliente>(`${this.baseUrl}/clientes/${idRuta}`, { headers, params })
   }
 
-  addCredito(idClinete: string, valor_credito: number, interes: number, total_cuotas: number, notas: string) {
+  addCredito(credito: FormularioNuevoCredito) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.post<CreditoResponse>(`${this.baseUrl}/creditos/${idClinete}`, { valor_credito, interes, total_cuotas, notas }, { headers })
+    return this.http.post<ResponseGetOneCredito>(`${this.baseUrl}/creditos/${credito.idCliente}`, credito, { headers })
       .pipe(
         map(resp => resp.ok),
-        catchError(err => err.errors.error.msg)
+        catchError(err => of(err))
       )
   }
 
-  getCaja(): Observable<CajaResponse> {
+  getCaja(ruta: string, fecha: string){
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<CajaResponse>(`${this.baseUrl}/caja`, { headers })
+    const params = new HttpParams()
+      .append('fecha', fecha)
+
+    return this.http.get<ResponseGetOneCaja>(`${this.baseUrl}/caja/${ruta}`, { headers, params })
   }
 
-  addInversion(valor: number, nota: string) {
+  addInversion(inversion: CrearInversion) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.post<InversionResponse>(`${this.baseUrl}/inversiones`, { valor, nota }, { headers })
+    return this.http.post<ResponseGetOneInversion>(`${this.baseUrl}/inversiones`, inversion, { headers })
       .pipe(
         map(resp => resp.ok),
-        catchError(err => err.errors.error.msg)
+        catchError(err => of(err))
       )
   }
 
   getListaGastos() {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<ListaGastoResponse>(`${this.baseUrl}/lista-gastos`, { headers })
+    return this.http.get<ResponseGetListaDeGastos>(`${this.baseUrl}/lista-gastos`, { headers })
       .pipe(
         map(resp => resp.gastos)
       )
   }
 
-  addGasto(valor: number, gasto: string, nota: string) {
+  addGasto(gasto: CrearGasto) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    const body = {
-      valor, gasto, nota
-    }
-    console.log(gasto, valor, nota)
 
-    return this.http.post<GastoResponse>(`${this.baseUrl}/gastos`, { ...body }, { headers })
+    return this.http.post<ResponseGetOneGasto>(`${this.baseUrl}/gastos`, gasto, { headers })
       .pipe(
         map(resp => resp.ok),
-        catchError(err => err)
+        catchError(err => of(err))
       )
   }
 
-  addRetiro(valor: number, nota: string) {
+  addRetiro(retiro: CrearRetiro) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.post<RetiroResponse>(`${this.baseUrl}/retiros`, { valor, nota }, { headers })
+    return this.http.post<ResponseGetOneRetiro>(`${this.baseUrl}/retiros`, retiro, { headers })
       .pipe(
         map(resp => resp.ok),
-        catchError(err => err)
+        catchError(err => of(err))
       )
   }
 
@@ -155,14 +148,14 @@ export class MainService {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<GetCliente>(`${this.baseUrl}/clientes/${id}`, { headers });
+    return this.http.get<ResponseGetOneCliente>(`${this.baseUrl}/clientes/one/${id}`, { headers });
   }
 
-  getPagos(id: string) {
+  getPagos(idCliente: string, idCredito: string) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos?cliente=${id}`, { headers })
+    return this.http.get<ResponseGetAllPagos>(`${this.baseUrl}/pagos/getPagos/${idCliente}/${idCredito}`, { headers })
   }
 
   // get pago de un cliente
@@ -170,34 +163,41 @@ export class MainService {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<PagoResponse>(`${this.baseUrl}/pagos/${id}`, {headers})
+    return this.http.get<ResponseGetPago>(`${this.baseUrl}/pagos/one/${id}`, {headers})
   }
 
   // para actualizar el pago
-  updatePago(id: string, valor: number){
+  updatePago(pago: ActualizarPago){
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.patch<PagoResponse>(`${this.baseUrl}/pagos/${id}`, {valor}, {headers})
+    return this.http.put<ResponseGetPago>(`${this.baseUrl}/pagos/update/${pago.idPago}`, pago, {headers})
+      .pipe(
+        map(resp => resp.ok),
+        catchError(err => of(err))
+      )
   }
 
-  getAllPagos() {
+  getAllPagos(ruta: string, fecha: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.get<GetPagosInterface>(`${this.baseUrl}/pagos`, {headers})
+    const params = new HttpParams()
+      .append('fecha', fecha)
+
+    return this.http.get<ResponseGetAllPagos>(`${this.baseUrl}/pagos/verificados/${ruta}`, {headers, params})
   }
 
   getRuta(id: string) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token)
+      .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.get<RutaResponse>(`${this.baseUrl}/rutas/${id}`, { headers })
+    return this.http.get<ResponseGetOneRuta>(`${this.baseUrl}/rutas/${id}`, { headers })
   }
 
   closeRuta(id: string) {
     const headers = new HttpHeaders()
-      .set('x-token', this.token);
+      .set('x-token', localStorage.getItem('token') || '');
 
     return this.http.patch<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {}, { headers });
   }

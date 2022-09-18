@@ -4,6 +4,7 @@ import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from '../../../auth/services/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-caja',
@@ -14,6 +15,11 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class CajaComponent implements OnInit {
 
   caja!: Caja;
+  hoy: string = moment().utc(true).format('DD/MM/YYYY');
+  
+  get user(){
+    return this.authService.user;
+  }
 
   constructor(private mainService: MainService,
               private router: Router,
@@ -22,14 +28,14 @@ export class CajaComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.mainService.getCaja()
+    this.mainService.getCaja(this.user.ruta, this.hoy)
       .subscribe(resp => {
         this.caja = resp.caja;
       })
   }
 
   cerrarRuta(){
-    this.mainService.closeRuta(this.caja.ruta)
+    this.mainService.closeRuta(this.user.ruta)
       .subscribe(resp => {
         if(resp){
           this.authService.logout();

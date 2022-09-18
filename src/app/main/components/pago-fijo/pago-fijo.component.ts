@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Credito } from '../../interfaces/main.interfaces';
+import { Credito, CrearPagoInterface } from '../../interfaces/main.interfaces';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 interface Pago{
   cuotas: number;
@@ -18,6 +19,7 @@ export class PagoFijoComponent implements OnInit {
 
   @Input() credito!: Credito 
   loading: boolean = false;
+  hoy: string = moment().utc(true).format('DD/MM/YYYY hh:mm a')
 
   pagoSeleccionado: FormControl = this.fb.control( null, Validators.required )
 
@@ -45,8 +47,14 @@ export class PagoFijoComponent implements OnInit {
   }
 
   pagar(){
-    this.loading = true
-    this.mainService.addPago(this.credito.id, this.pagoSeleccionado.value)
+    this.loading = true;
+    let pago: CrearPagoInterface = {
+      valor: this.pagoSeleccionado.value,
+      fecha: this.hoy,
+      idCredito: this.credito.id,
+      idRuta: this.credito.ruta
+    }
+    this.mainService.addPago(pago)
       .subscribe(resp => {
         if(resp.ok){
           this.router.navigateByUrl('/main')

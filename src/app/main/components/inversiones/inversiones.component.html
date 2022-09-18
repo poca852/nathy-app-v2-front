@@ -21,11 +21,10 @@
         placeholder="Ejemplo: Inversion por reajuste de caja" 
         pInputTextarea
         [autoResize]="true"></textarea>
-        <button pButton label="Guardar" (click)="confirm($event)" [disabled]="loading"></button>
+        <button pButton label="Guardar" (click)="crearInversion()" [disabled]="loading"></button>
     </div>
   </div>
 </div>
 <div class="loading" *ngIf="loading">
   <p-progressSpinner></p-progressSpinner>
 </div>
-<p-confirmPopup></p-confirmPopup>

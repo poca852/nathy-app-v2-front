@@ -1,8 +1,16 @@
-<div class="main" *ngIf="cliente">
+<div class="main text-layout" *ngIf="cliente">
   <div class="card flex flex-column gap-1">
 
-    <div class="titel">
+    <div class="title">
       <h1>{{cliente.nombre}}</h1>
+      <button
+        pButton
+        label="Volver"
+        class="p-button-outlined"
+        routerLink="/main/rutero"
+      >
+
+      </button>
     </div>
 
     <div class="body">
@@ -19,7 +27,11 @@
 
       <div class="grid">
         <div class="col">Telefono</div>
-        <div class="col">{{cliente.telefono}}</div>
+        <div class="col">
+          <a 
+            href="tel:{{cliente.telefono}}"
+            class="text-layout">{{cliente.telefono}}</a>
+        </div>
       </div>
 
       <div class="grid">
@@ -31,7 +43,9 @@
 
       <div class="gri">
         <h3>Historial de pagos</h3>
-        <app-historial-pagos [id]="cliente.id"></app-historial-pagos>
+        <app-historial-pagos 
+          [idCliente]="cliente.id"
+          [idCredito]="cliente.creditos[0]._id"></app-historial-pagos>
       </div>
 
     </div>
