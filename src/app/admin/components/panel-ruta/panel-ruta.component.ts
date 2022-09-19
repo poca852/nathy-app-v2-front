@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Ruta } from '../../interfaces/admin.interfaces';
 import { AdminService } from '../../services/admin.service';
 import * as moment from 'moment';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
   templateUrl: './panel-ruta.component.html',
   styleUrls: ['./panel-ruta.component.css']
 })
-export class PanelRutaComponent implements OnInit, OnChanges {
+export class PanelRutaComponent implements OnInit {
 
   @Input() ruta: Ruta;
   fecha: string = moment().utc(true).format('DD/MM/YYYY');
@@ -16,10 +16,6 @@ export class PanelRutaComponent implements OnInit, OnChanges {
   constructor(
     private adminService: AdminService
   ) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
-  }
 
   ngOnInit(): void {
   }
@@ -34,7 +30,7 @@ export class PanelRutaComponent implements OnInit, OnChanges {
   }
 
   openRuta(){
-    this.adminService.openRuta(this.ruta.id, this.fecha)
+    this.adminService.openRuta(this.ruta._id, this.fecha)
       .subscribe(resp => {
         if(resp.ok === true){
           window.location.reload()
