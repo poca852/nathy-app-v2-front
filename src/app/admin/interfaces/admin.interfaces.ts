@@ -1,10 +1,9 @@
 export interface User {
-  id?: string;
+  id: string;
   _id?: string;
   nombre: string;
   username: string;
-  ruta?: string;
-  rutas: string[];
+  rutas: Ruta[];
   estado: boolean;
   rol: Rol;
 }
@@ -28,10 +27,11 @@ export interface LoginResponse {
 
 // ruta
 export interface Ruta {
-  id?: string;
+  id: string;
   _id?: string;
   nombre: string;
-  clientes: number;
+  clientes: string;
+  clientes_activos: number;
   gastos: number;
   inversiones: number;
   retiros: number;
@@ -41,7 +41,11 @@ export interface Ruta {
   total_prestado: number;
   status: boolean;
   ultimo_cierre: string;
-  ultima_apertura : string;
+  ultima_apertura: string;
+  ingresar_gastos_cobrador: boolean;
+  cajas: string[];
+  caja_actual: string;
+  ultima_caja: string;
 }
 
 export interface GetRutaResponse {

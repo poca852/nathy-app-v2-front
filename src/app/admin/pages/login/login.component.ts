@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.loading = true;
-
     if(this.formLogin.invalid){
       Swal.fire('Error', 'Por favor Ingresa los datos', 'error')
       this.loading = false;
@@ -38,6 +37,7 @@ export class LoginComponent implements OnInit {
 
     this.adminService.login(this.formLogin.value)
       .subscribe(resp => {
+        console.log(resp)
         if(resp === true){
           this.router.navigateByUrl('/admin/home')
           this.loading = false;

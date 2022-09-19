@@ -2,59 +2,64 @@ import { Component, OnInit } from '@angular/core';
 import { Caja } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from '../../../auth/services/auth.service';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-caja',
   templateUrl: './caja.component.html',
   styleUrls: ['./caja.component.css'],
-  providers: [ConfirmationService, MessageService]
 })
 export class CajaComponent implements OnInit {
 
   caja!: Caja;
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
-  
-  get user(){
+  loading: boolean = true;
+
+  get user() {
     return this.authService.user;
   }
 
   constructor(private mainService: MainService,
-              private router: Router,
-              private confirmationService: ConfirmationService,
-              private messageService: MessageService,
-              private authService: AuthService) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.mainService.getCaja(this.user.ruta, this.hoy)
       .subscribe(resp => {
         this.caja = resp.caja;
+        this.loading = false;
       })
   }
 
-  cerrarRuta(){
-    this.mainService.closeRuta(this.user.ruta)
-      .subscribe(resp => {
-        if(resp){
-          this.authService.logout();
-        }
-      })
-  }
-
-  confirm(event: Event) {
-    this.confirmationService.confirm({
-        target: event.target,
-        message: 'Estas seguro?!!',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.cerrarRuta()
-        },
-        // reject: () => {
-        //     this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-        // }
-    });
+  cerrarRuta() {
+    this.loading = true
+    Swal.fire({
+      title: 'Estas a punto de cerrar la ruta',
+      text: "Esta acción ya no se podra revertir",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.mainService.closeRuta(this.user.ruta, this.hoy)
+          .subscribe(resp => {
+            if (resp) {
+              this.authService.logout();
+              Swal.fire('Success', 'Ruta Cerrada', 'success')
+              this.loading = false;
+            } else {
+              this.loading = false;
+            }
+          })
+      } else {
+        this.loading = false;
+      }
+    })
   }
 
 }

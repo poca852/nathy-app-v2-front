@@ -195,10 +195,10 @@ export class MainService {
     return this.http.get<ResponseGetOneRuta>(`${this.baseUrl}/rutas/${id}`, { headers })
   }
 
-  closeRuta(id: string) {
+  closeRuta(id: string, fecha: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.patch<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {}, { headers });
+    return this.http.put<RutaClose>(`${this.baseUrl}/rutas/close/${id}`, {fecha}, { headers });
   }
 }

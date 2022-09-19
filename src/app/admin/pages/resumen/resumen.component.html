@@ -1,8 +1,8 @@
 <div class="card" *ngIf="!loading">
   <div class="flex flex-column gap-2">
     <app-panel-ruta
-      *ngFor="let ruta of rutas"
-      [ruta]="ruta"
+      *ngFor="let ruta of user.rutas"
+      [ruta]='ruta'
     ></app-panel-ruta>
   </div>
 </div>
