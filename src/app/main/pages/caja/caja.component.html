@@ -42,6 +42,11 @@
     </div>
 
     <div class="grid">
+      <div class="col flex justify-content-end">Total Cobrado: </div>
+      <div class="col">{{(caja.cobro + caja.extra) | currency:'GTQ'}}</div>
+    </div>
+
+    <div class="grid">
       <div class="col flex justify-content-end">Prestamo: </div>
       <div class="col">{{caja.prestamo | currency:'GTQ'}}</div>
     </div>
