@@ -51,6 +51,7 @@ export class CajaComponent implements OnInit {
             if (resp) {
               this.authService.logout();
               Swal.fire('Success', 'Ruta Cerrada', 'success')
+              this.router.navigateByUrl('auth');
               this.loading = false;
             } else {
               this.loading = false;
