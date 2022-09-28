@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Ruta } from '../../interfaces/admin.interfaces';
-import { AdminService } from '../../services/admin.service';
+import { Ruta } from '../../../interfaces/admin.interfaces';
+import { AdminService } from '../../../services/admin.service';
 import * as moment from 'moment';
 
 @Component({

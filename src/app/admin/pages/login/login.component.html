@@ -1,30 +1,45 @@
-<div class="container">
-  <form
-    [formGroup]="formLogin"
-    (ngSubmit)="login()"
-  >
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-      <input 
+<div class="card text-layout">
+  <div 
+    class="card-container flex flex-column align-items-center justify-content-center p-3 border-round-sm"
+    [ngStyle]="{backgroundColor: '#1F2D40'}">
+
+    <!-- Title -->
+    <div>
+      <h1>Bienvenido</h1>
+    </div>
+    
+    <form
+      [formGroup]="formLogin"
+      (ngSubmit)="login()"
+      class="flex flex-column w-full justify-content-center"
+      autocomplete="off"
+    >
+      <div class="field">
+        <label for="username" class="block">Usuario</label>
+        <input 
         type="text" 
+        class="w-full"
         pInputText 
         formControlName="username"
-        placeholder="Usuario">
-    </div>
-
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
-      <input 
-        type="password" 
-        pInputText 
-        formControlName="password"
-        placeholder="Contraseña">
-    </div>
-
-    <button 
-      pButton 
-      label="Ingresar" 
-      type="submit"
-      [disabled]="loading"></button>
-  </form>
+        id="username">
+      </div>
+  
+      <div class="field">
+        <label for="password" class="block">Contraseña</label>
+        <input 
+          type="password" 
+          pInputText 
+          class="w-full"
+          formControlName="password">
+      </div>
+  
+      <button 
+        pButton 
+        label="Ingresar" 
+        icon="pi pi-user"
+        iconPos="left"
+        type="submit"
+        [disabled]="loading"></button>
+    </form>
+  </div>
 </div>

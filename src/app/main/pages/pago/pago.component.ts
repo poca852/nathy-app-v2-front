@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { Credito } from '../../interfaces/main.interfaces';
-import { MainService } from '../../services/main.service';
+import { Credito } from '../../../interfaces/main.interfaces';
+import { MainService } from '../../../services/main.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({

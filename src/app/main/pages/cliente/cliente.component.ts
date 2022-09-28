@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { MainService } from '../../../services/main.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
-import { Cliente } from '../../interfaces/main.interfaces';
+import { Cliente } from '../../../interfaces/main.interfaces';
 
 @Component({
   selector: 'app-cliente',

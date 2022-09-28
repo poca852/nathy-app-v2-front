@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({

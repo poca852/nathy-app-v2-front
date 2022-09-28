@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Pago, GetAllPagos } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
 import * as moment from 'moment';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-historial-pagos',

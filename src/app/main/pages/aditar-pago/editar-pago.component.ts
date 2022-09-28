@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { MainService } from '../../../services/main.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
-import { Pago, ActualizarPago } from '../../interfaces/main.interfaces';
+import { Pago, ActualizarPago } from '../../../interfaces/main.interfaces';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';

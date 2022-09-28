@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
-import { Cliente, Credito } from '../../interfaces/main.interfaces';
-import { AuthService } from '../../../auth/services/auth.service';
+import { MainService } from '../../../services/main.service';
+import { Cliente, Credito } from '../../../interfaces/main.interfaces';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-renovaciones',

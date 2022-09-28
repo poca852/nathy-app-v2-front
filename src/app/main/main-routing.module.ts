@@ -14,9 +14,9 @@ import { ClienteComponent } from './pages/cliente/cliente.component';
 import { CajaComponent } from './pages/caja/caja.component';
 import { VerificadosComponent } from './pages/verificados/verificados.component';
 import { RenovarComponent } from './pages/renovar/renovar.component';
-import { InversionesComponent } from './components/inversiones/inversiones.component';
-import { GastosComponent } from './components/gastos/gastos.component';
-import { RetirosComponent } from './components/retiros/retiros.component';
+import { InversionesComponent } from '../components/inversiones/inversiones.component';
+import { GastosComponent } from '../components/gastos/gastos.component';
+import { RetirosComponent } from '../components/retiros/retiros.component';
 import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
 
 const routes: Routes = [

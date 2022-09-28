@@ -1,5 +1,5 @@
-import { Ruta } from 'src/app/main/interfaces/main.interfaces';
-import { Rol } from '../../admin/interfaces/admin.interfaces';
+import { Ruta } from 'src/app/interfaces/main.interfaces';
+import { Rol } from './admin.interfaces';
 // esta es la respuesta cuando se hace un login, obtenemos el ok, el usuario y el token
 export interface AuthResponse {
   ok: boolean;

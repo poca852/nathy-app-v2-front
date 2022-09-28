@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
     canActivate: [LoginGuard],
-    // canLoad: [LoginGuard]
+    //canLoad: [LoginGuard]
   },
 
   {
@@ -22,6 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]
   },
+  
   {
     path: '**',
     redirectTo: 'auth'

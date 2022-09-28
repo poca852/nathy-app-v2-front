@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AuthResponse, UserLogin, User } from '../interface/auth.interface';
-import { MainService } from 'src/app/main/services/main.service';
+import { AuthResponse, UserLogin, User } from '../interfaces/auth.interface';
+import { MainService } from 'src/app/services/main.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
-import { Credito, Pago } from '../../interfaces/main.interfaces';
+import { MainService } from '../../../services/main.service';
+import { Credito, Pago } from '../../../interfaces/main.interfaces';
 import * as moment from 'moment';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-verificados',

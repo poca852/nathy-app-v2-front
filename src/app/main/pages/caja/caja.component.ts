@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Caja } from '../../interfaces/main.interfaces';
-import { MainService } from '../../services/main.service';
+import { Caja } from '../../../interfaces/main.interfaces';
+import { MainService } from '../../../services/main.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 

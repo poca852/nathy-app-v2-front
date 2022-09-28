@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
-import { Credito, Cliente } from '../../interfaces/main.interfaces';
+import { MainService } from '../../../services/main.service';
+import { Credito, Cliente } from '../../../interfaces/main.interfaces';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { AuthService } from '../../../auth/services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-rutero',

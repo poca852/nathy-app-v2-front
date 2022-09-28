@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import * as moment from 'moment';
-import { AuthService } from '../../../auth/services/auth.service';
-import { CrearRetiro } from '../../interfaces/main.interfaces';
+import { CrearInversion } from '../../interfaces/main.interfaces';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-retiros',
-  templateUrl: './retiros.component.html',
-  styleUrls: ['./retiros.component.css'],
+  selector: 'app-inversiones',
+  templateUrl: './inversiones.component.html',
+  styleUrls: ['./inversiones.component.css'],
 })
-export class RetirosComponent implements OnInit {
+export class InversionesComponent implements OnInit {
 
   loading: boolean = false;
 
-  valor: FormControl = this.fb.control(null, [Validators.required, Validators.min(0)]);
+  valor: FormControl = this.fb.control(null, [Validators.required, Validators.min(0)])
   nota: FormControl = this.fb.control('');
   fecha: string = moment().utc(true).format('DD/MM/YYYY');
 
@@ -24,7 +24,8 @@ export class RetirosComponent implements OnInit {
     return this.authService.user;
   }
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private mainService: MainService,
     private router: Router,
     private authService: AuthService) { }
@@ -32,11 +33,11 @@ export class RetirosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  crearRetiro() {
-    this.loading = true
+  crearInversion() {
+    this.loading = true;
     Swal.fire({
-      title: 'Confirmación',
-      text: "¿Estas seguro de hacer este retiro?",
+      title: 'Confirmar?',
+      text: `¿Estas seguro de ingresar esta inversion?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -45,16 +46,16 @@ export class RetirosComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        let retiro: CrearRetiro = {
-          valor: this.valor.value,
+        let inversion: CrearInversion = {
           fecha: this.fecha,
+          valor: this.valor.value,
           nota: this.nota.value,
           idRuta: this.user.ruta
         }
-        this.mainService.addRetiro(retiro)
+        this.mainService.addInversion(inversion)
           .subscribe(resp => {
             if (resp === true) {
-              Swal.fire('Success', 'Retiro agregado correctamente', 'success')
+              Swal.fire('Success', 'Inversion agregada correctamente', 'success')
               this.router.navigateByUrl('/main/caja')
               this.loading = false;
             }else{
@@ -66,7 +67,6 @@ export class RetirosComponent implements OnInit {
         this.loading = false;
       }
     })
+
   }
-
-
 }

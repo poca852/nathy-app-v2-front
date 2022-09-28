@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { AdminService } from '../services/admin.service';
+import { AdminService } from '../../services/admin.service';
 
 @Injectable({
   providedIn: 'root'

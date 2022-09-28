@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../services/admin.service';
+import { AdminService } from '../../../services/admin.service';
 import { Router } from '@angular/router';
-import { Ruta } from '../../interfaces/admin.interfaces';
+import { Ruta } from '../../../interfaces/admin.interfaces';
 
 @Component({
   selector: 'app-resumen',

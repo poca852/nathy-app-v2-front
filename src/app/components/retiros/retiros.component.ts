@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/services/auth.service';
 import * as moment from 'moment';
-import { CrearInversion } from '../../interfaces/main.interfaces';
+import { AuthService } from '../../services/auth.service';
+import { CrearRetiro } from '../../interfaces/main.interfaces';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-inversiones',
-  templateUrl: './inversiones.component.html',
-  styleUrls: ['./inversiones.component.css'],
+  selector: 'app-retiros',
+  templateUrl: './retiros.component.html',
+  styleUrls: ['./retiros.component.css'],
 })
-export class InversionesComponent implements OnInit {
+export class RetirosComponent implements OnInit {
 
   loading: boolean = false;
 
-  valor: FormControl = this.fb.control(null, [Validators.required, Validators.min(0)])
+  valor: FormControl = this.fb.control(null, [Validators.required, Validators.min(0)]);
   nota: FormControl = this.fb.control('');
   fecha: string = moment().utc(true).format('DD/MM/YYYY');
 
@@ -24,8 +24,7 @@ export class InversionesComponent implements OnInit {
     return this.authService.user;
   }
 
-  constructor(
-    private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private mainService: MainService,
     private router: Router,
     private authService: AuthService) { }
@@ -33,11 +32,11 @@ export class InversionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  crearInversion() {
-    this.loading = true;
+  crearRetiro() {
+    this.loading = true
     Swal.fire({
-      title: 'Confirmar?',
-      text: `¿Estas seguro de ingresar esta inversion?`,
+      title: 'Confirmación',
+      text: "¿Estas seguro de hacer este retiro?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -46,16 +45,16 @@ export class InversionesComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        let inversion: CrearInversion = {
-          fecha: this.fecha,
+        let retiro: CrearRetiro = {
           valor: this.valor.value,
+          fecha: this.fecha,
           nota: this.nota.value,
           idRuta: this.user.ruta
         }
-        this.mainService.addInversion(inversion)
+        this.mainService.addRetiro(retiro)
           .subscribe(resp => {
             if (resp === true) {
-              Swal.fire('Success', 'Inversion agregada correctamente', 'success')
+              Swal.fire('Success', 'Retiro agregado correctamente', 'success')
               this.router.navigateByUrl('/main/caja')
               this.loading = false;
             }else{
@@ -67,6 +66,7 @@ export class InversionesComponent implements OnInit {
         this.loading = false;
       }
     })
-
   }
+
+
 }
