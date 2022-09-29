@@ -1,5 +1,5 @@
 
-<p-toolbar [ngStyle]="{'position': 'fixed', 'right': 0, 'left': 0, 'top': 0}">
+<p-toolbar [ngStyle]="{'position': 'fixed', 'right': 0, 'left': 0, 'top': 0, 'z-index': 9000}">
   <div class="p-toolbar-group-left">
     <button
       pButton
@@ -12,16 +12,20 @@
   <div class="p-toolbar-group-right">
     <button
       pButton
-      class="p-button-danger"
-      icon="pi pi-power-off"
-      (click)="logout()"
+      class="p-button-text"
+      icon="pi pi-user"
+      (click)="menu.toggle($event)"
     ></button>
+    <p-menu
+      #menu
+      [popup]="true"
+      [model]="configUser"
+    >
+    </p-menu>
   </div>
 </p-toolbar>
 
-<p-sidebar [(visible)]="openMenu" [baseZIndex]="10000">
-  <h3>Left Sidebar</h3>
-</p-sidebar>
+<app-sidebar [openMenu]="openMenu"></app-sidebar>
 
 <div class="contenedor">
   <router-outlet></router-outlet>

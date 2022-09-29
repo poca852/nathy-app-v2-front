@@ -21,8 +21,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {DividerModule} from 'primeng/divider';
 
 
-
-
 @NgModule({
   exports: [
     InputTextModule,

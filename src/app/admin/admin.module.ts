@@ -8,6 +8,7 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ResumenComponent } from './pages/resumen/resumen.component';
 import { PanelRutaComponent } from './components/panel-ruta/panel-ruta.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PanelRutaComponent } from './components/panel-ruta/panel-ruta.component
     LoginComponent,
     HomeComponent,
     ResumenComponent,
-    PanelRutaComponent
+    PanelRutaComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
