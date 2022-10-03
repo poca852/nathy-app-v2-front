@@ -16,7 +16,7 @@ registerLocaleData(localeEs)
   declarations: [
     AppComponent,
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,

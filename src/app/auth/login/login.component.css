@@ -1,14 +1,11 @@
-.main{
-  /* height: 100vh; */
-  /* width: 100vw; */
-  margin-top: 50px;
-  display: grid;
+.main {
+  display: flex;
   justify-content: center;
-  align-content: center !important;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
 }
 
-form{
-  border: thin solid gray;
-  border-radius: 10px;
-  padding: 25px;
+.main > div {
+  margin-top: -100px;
 }

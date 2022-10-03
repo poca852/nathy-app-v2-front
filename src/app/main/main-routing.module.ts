@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // components
-import { HomeComponent } from './pages/home/home.component';
+// import { HomeComponent } from './pages/home/home.component';
 import { RuteroComponent } from './pages/rutero/rutero.component';
 import { RenovacionesComponent } from './pages/renovaciones/renovaciones.component';
 import { ClienteNuevoComponent } from './pages/cliente-nuevo/cliente-nuevo.component';
@@ -18,11 +18,12 @@ import { InversionesComponent } from '../components/inversiones/inversiones.comp
 import { GastosComponent } from '../components/gastos/gastos.component';
 import { RetirosComponent } from '../components/retiros/retiros.component';
 import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
+import { AppLayoutComponent } from './layout/app.layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: AppLayoutComponent,
     children: [
       {
         path: 'rutero',

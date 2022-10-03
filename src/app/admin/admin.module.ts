@@ -1,29 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { AppMenuitemComponent } from './layout/app.menuitem.component';
+import { AppTopBarComponent } from './layout/app.topbar.component';
+import { AppFooterComponent } from './layout/app.footer.component';
+import { AppMenuComponent } from './layout/app.menu.component';
+import { AppSidebarComponent } from './layout/app.sidebar.component';
+import { AppLayoutComponent } from './layout/app.layout.component';
+import { AppConfigModule } from './layout/config/config.module';
 import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
 import { PrimengModule } from '../primeng/primeng.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ResumenComponent } from './pages/resumen/resumen.component';
-import { PanelRutaComponent } from './components/panel-ruta/panel-ruta.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    HomeComponent,
-    ResumenComponent,
-    PanelRutaComponent,
-    SidebarComponent
+      AppMenuitemComponent,
+      AppTopBarComponent,
+      AppFooterComponent,
+      AppMenuComponent,
+      AppSidebarComponent,
+      AppLayoutComponent,
+      LoginComponent,
+      DashboardComponent,
+      BarChartComponent
   ],
   imports: [
-    CommonModule,
-    AdminRoutingModule,
-    PrimengModule,
-    ReactiveFormsModule
-  ]
+      CommonModule,
+      HttpClientModule,
+      ReactiveFormsModule,
+      PrimengModule,
+      AdminRoutingModule,
+      AppConfigModule
+  ],
+  exports: [AppLayoutComponent]
 })
 export class AdminModule { }

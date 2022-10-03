@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Caja } from '../interfaces/main.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,13 @@ export class AdminService {
       .append('status', true)
 
     return this.http.get<GetRutasResponse>(`${this.baseUrl}/rutas`, {headers, params})
+  }
+
+  getCajas(id: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token'))
+
+    return this.http.get<Caja[]>(`${this.baseUrl}/caja/admin/${id}`, {headers})
   }
 
   // gestion de rutas

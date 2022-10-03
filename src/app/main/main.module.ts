@@ -24,10 +24,24 @@ import { GastosComponent } from '../components/gastos/gastos.component';
 import { HistorialPagosComponent } from '../components/historial-pagos/historial-pagos.component';
 import { CreditoTableComponent } from '../components/credito-table/credito-table.component';
 import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
+import { AppConfigModule } from './layout/config/config.module';
+import { AppLayoutComponent } from './layout/app.layout.component';
+import { AppTopBarComponent } from './layout/app.topbar.component';
+import { AppFooterComponent } from './layout/app.footer.component';
+import { AppMenuComponent } from './layout/app.menu.component';
+import { AppSidebarComponent } from './layout/app.sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppMenuitemComponent } from './layout/app.menuitem.component';
 
 
 @NgModule({
   declarations: [
+    AppLayoutComponent,
+    AppTopBarComponent,
+    AppFooterComponent,
+    AppMenuComponent,
+    AppSidebarComponent,
+    AppMenuitemComponent,
     HomeComponent,
     RuteroComponent,
     RenovacionesComponent,
@@ -51,9 +65,12 @@ import { EditarPagoComponent } from './pages/aditar-pago/editar-pago.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MainRoutingModule,
-    PrimengModule
-  ]
+    PrimengModule,
+    AppConfigModule
+  ],
+  exports: [AppLayoutComponent]
 })
 export class MainModule { }

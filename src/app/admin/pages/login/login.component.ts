@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       .subscribe(resp => {
         console.log(resp)
         if(resp === true){
-          this.router.navigateByUrl('/admin/home')
+          this.router.navigateByUrl('/admin/dashboard')
           this.loading = false;
         }else{
           Swal.fire('Error', resp, 'error');

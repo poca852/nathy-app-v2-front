@@ -8,7 +8,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-pago',
   templateUrl: './pago.component.html',
-  styleUrls: ['./pago.component.css']
+  styleUrls: ['./pago.component.scss']
 })
 export class PagoComponent implements OnInit {
 
