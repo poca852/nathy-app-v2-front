@@ -5,6 +5,7 @@ import { AuthGuardAdmin } from './guards/authAdmin.guard';
 import { LoginGuardAdmin } from './guards/loginAdmin.guard';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   
@@ -14,6 +15,8 @@ const routes: Routes = [
     canActivate: [LoginGuardAdmin]
   },
 
+  
+
   {
     path: '',
     component: AppLayoutComponent,
@@ -22,7 +25,12 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
-      }
+      },
+      {
+	path: 'perfil',
+	component: PerfilComponent,
+	canActivate: [AuthGuardAdmin]
+      },
     ]
   },
 

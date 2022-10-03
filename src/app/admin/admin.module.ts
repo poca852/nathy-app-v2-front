@@ -15,6 +15,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
       AppLayoutComponent,
       LoginComponent,
       DashboardComponent,
-      BarChartComponent
+      BarChartComponent,
+      PerfilComponent
   ],
   imports: [
       CommonModule,

@@ -36,7 +36,7 @@ export class AppMenuComponent implements OnInit {
                     },
 
                     { 
-                        label: 'Cliente Nuewvo', 
+                        label: 'Cliente Nuevo', 
                         icon: 'pi pi-fw pi-user-plus', 
                         routerLink: ['cliente-nuevo'] 
                     },
