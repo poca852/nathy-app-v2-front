@@ -87,4 +87,12 @@ export class AdminService {
 
     return this.http.put<CloseRuta>(`${this.baseUrl}/rutas/open/${id}`, {fecha}, {headers})
   }
+
+  // actualizar usuario
+  actualizarUsuario(id: string, body: any) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.put<LoginResponse>(`${this.baseUrl}/usuarios/${id}`, { ...body }, {headers})
+  }
 }

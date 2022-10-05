@@ -1,18 +1,64 @@
 .main-perfil {
 
   .banner{
-    background-color: red;
+    background-color: var(--primary-color);
+    border-radius: 10px 10px 0 0;
     height: 100px;
     width: 100%;
   }
 
   .photo{
-    width: 100px;
     position: relative;
     top: -50px;
-    left: 10px;
+    left: 15px;
+    width: 100px;
     height: 100px;
-    background-color: green;
+    // background-color: green;
+    overflow: hidden;
     border-radius: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .nombre{
+    padding: 0 15px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    top: -35px;
+
+    h3{
+
+      span{
+        font-size: 15px;
+        color: var(--primary-color);
+      }
+
+      small{
+        font-size: 12px;
+      }
+    }
+
+    span{
+      cursor: pointer;
+
+      i{
+        font-size: 15px;
+      }
+    }
+  }
+
+  .rutas{
+    padding: 0 15px;
+
+    ul{
+
+      li{
+        list-style: none;
+      }
+    }
   }
 }

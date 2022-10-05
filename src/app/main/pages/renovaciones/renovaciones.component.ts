@@ -6,11 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-renovaciones',
   templateUrl: './renovaciones.component.html',
-  styles: [
-    `.main{
-      margin-top: 60px;
-    }`
-  ]
+  styles: []
 })
 export class RenovacionesComponent implements OnInit {
 

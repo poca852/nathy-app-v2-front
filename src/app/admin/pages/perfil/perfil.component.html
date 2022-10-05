@@ -1,4 +1,106 @@
-<div class="main-perfil">
-  <div class="banner"></div>
-  <div class="photo"></div>
+<div class="card">
+  <div class="main-perfil">
+    <div class="banner"></div>
+    <div class="photo">
+      <img 
+        [src]="user.img ? 'user.img' : 'assets/images/sin-img.png'" 
+        [alt]="user.nombre" />
+    </div>
+    <div class="nombre">
+      <h3>
+        {{user.nombre | titlecase}}
+        <span>Administrador </span>
+        <small>@{{user.username}} </small>
+      </h3>
+      <span (click)="openModal = !openModal">
+        <i class="pi pi-pencil"></i>
+      </span>
+    </div>
+    <hr>
+    <p-dialog
+      [style]="{width: '450px'}"
+      header="Actualizar datos"
+      [modal]="true"
+      class="p-fluid"
+      [(visible)]="openModal"
+    >
+      <ng-template pTemplate="content">
+        <form 
+          autocomplete="off"
+          [formGroup]="formUser"
+        >
+          <div class="field">
+            <label for="username">Usuario</label>
+            <input 
+              type="text"
+              pInputText
+              formControlName="username"
+              id="username"
+              >
+          </div>
+  
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input 
+              type="password"
+              pInputText
+              formControlName="password"
+              id="password"
+              >
+          </div>
+  
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input 
+              type="text"
+              pInputText
+              formControlName="nombre"
+              id="nombre"
+              >
+          </div>
+        </form>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button 
+          pButton 
+          pRipple
+          class="p-button-danger"
+          (click)="openModal = !openModal"
+          label="Cancelar"></button>
+        <button 
+          pButton 
+          pRipple
+          (click)="actualizarUser()"
+          class="p-button-success"
+          label="Actualizar"></button>
+      </ng-template>
+      
+    </p-dialog>
+
+    <div class="rutas">
+      <h4>Rutas a cargo</h4>
+      <div class="grid">
+        <div class="col-12 lg:col-6 xl:col-3" *ngFor="let ruta of user.rutas">
+          <div class="card">
+            <div class="flex justify-content-between mb-3">
+              <div>
+                <span class="block text-500 font-medium mb-3">
+                  {{ruta.nombre}}
+                </span>
+                <div class="text-900 font-medium text-xl">
+                  {{ruta.cartera | currency:'GTQ'}}
+                </div>
+              </div>
+              <div 
+                class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                <i class="pi pi-external-link"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

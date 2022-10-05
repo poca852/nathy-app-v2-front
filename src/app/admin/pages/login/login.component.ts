@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { AdminService } from '../../../services/admin.service';
 import Swal from 'sweetalert2';
 
@@ -19,10 +20,14 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private title: Title,
     private fb: FormBuilder,
     private router: Router,
     private adminService: AdminService
-  ) { }
+  ) { 
+
+    title.setTitle('Administrador - Login')
+  }
 
   ngOnInit(): void {
   }

@@ -6,6 +6,7 @@ export interface User {
   rutas: Ruta[];
   estado: boolean;
   rol: Rol;
+  img?: string;
 }
 
 export interface UserLogin {

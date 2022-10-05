@@ -23,6 +23,8 @@ import { RippleModule } from 'primeng/ripple';
 import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChartModule } from 'primeng/chart'
+import { DialogModule } from 'primeng/dialog';
+
 
 @NgModule({
   exports: [
@@ -49,6 +51,7 @@ import { ChartModule } from 'primeng/chart'
     TableModule,
     ProgressSpinnerModule,
     ChartModule,
+    DialogModule,
     DividerModule]
 })
 export class PrimengModule { }

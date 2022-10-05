@@ -27,9 +27,8 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-	path: 'perfil',
-	component: PerfilComponent,
-	canActivate: [AuthGuardAdmin]
+	      path: 'perfil',
+	      component: PerfilComponent,
       },
     ]
   },
