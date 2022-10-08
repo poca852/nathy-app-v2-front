@@ -1,0 +1,163 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+              (click)="openNew()"></button>
+            <!-- <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+              (click)="deleteSelectedProducts()" [disabled]="!selectedEmpleados || !selectedEmpleados.length"></button> -->
+          </div>
+        </ng-template>
+
+        <!-- <ng-template pTemplate="right">
+          <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+            class="mr-2 inline-block"></p-fileUpload>
+          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+            (click)="dt.exportCSV()"></button>
+        </ng-template> -->
+      </p-toolbar>
+
+      <p-table #dt [value]="empleados" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+        [globalFilterFields]="['nombre', 'status', 'rol.rol', 'ruta.nombre']" [rows]="10" [paginator]="true"
+        [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+        selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gestion Empleados</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
+                class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+            <th pSortableColumn="username">Usuario <p-sortIcon field="username"></p-sortIcon>
+            </th>
+            <th>Foto</th>
+            <th pSortableColumn="ruta">Ruta <p-sortIcon field="ruta"></p-sortIcon>
+            </th>
+            <th pSortableColumn="rol">Rol <p-sortIcon field="rol"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-empleado>
+          <tr>
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">Nombre</span>
+              {{empleado.nombre | titlecase}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Usuario</span>
+              {{empleado.username | titlecase}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Foto</span>
+              <img [src]="empleado.img ? empleado.img : 'assets/images/sin-img.png'" [alt]="empleado.nombre" width="100" class="shadow-4" />
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Ruta</span>
+              {{empleado.ruta.nombre | titlecase}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Rol</span>
+              {{empleado.rol.rol | titlecase}}
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                  (click)="editEmpleado(empleado)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                  (click)="deleteEmpleado(empleado)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog [(visible)]="empleadoDigalog" [style]="{width: '450px'}" header="Nuevo Empleado" [modal]="true"
+      class="p-fluid">
+      <ng-template pTemplate="content">
+        <!-- <img [src]="'assets/demo/images/product/' + empleado.img" [alt]="empleado.nombre" width="150"
+          class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="empleado.img"> -->
+        <form
+          [formGroup]="formEmpleado"
+        >
+          <div class="field">
+            <label for="rol">Rol</label>
+            <p-dropdown 
+              [options]="roles" 
+              optionLabel="rol"
+              optionValue="id"
+              formControlName="rol"
+              placeholder="Selecciona un rol">
+            </p-dropdown>
+          </div>
+  
+          <div class="field">
+            <label for="ruta">Ruta</label>
+            <p-dropdown 
+              [options]="rutas" 
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="ruta"
+              placeholder="Selecciona una ruta">
+            </p-dropdown>
+          </div>
+  
+  
+          <div class="field">
+            <label for="username">Usuario</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="username"
+              id="username" />
+          </div>
+  
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input 
+              id="nombre" 
+              pInputText 
+              formControlName='nombre' />
+          </div>
+  
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input 
+              id="password" 
+              pInputText 
+              type="password"
+              formControlName="password" />
+          </div>
+        </form>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteEmpleadoDialog" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="empleado">Estas seguro de eliminar a <b>{{empleado.nombre | titlecase}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+          (click)="deleteEmpleadoDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+
+  </div>
+</div>

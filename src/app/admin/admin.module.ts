@@ -16,6 +16,10 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { EmpleadosComponent } from './pages/empleados/empleados.component';
+import { RutasComponent } from './pages/rutas/rutas.component';
+import { TableEmpleadosComponent } from './components/table-empleados/table-empleados.component';
+import { TableRutasComponent } from './components/table-rutas/table-rutas.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
       LoginComponent,
       DashboardComponent,
       BarChartComponent,
-      PerfilComponent
+      PerfilComponent,
+      EmpleadosComponent,
+      RutasComponent,
+      TableEmpleadosComponent,
+      TableRutasComponent,
   ],
   imports: [
       CommonModule,

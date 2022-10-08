@@ -7,6 +7,17 @@ export interface User {
   estado: boolean;
   rol: Rol;
   img?: string;
+  ruta?: Ruta;
+}
+
+export interface Empleado{
+  nombre: string;
+  username: string;
+  password: string;
+  ruta: string;
+  rol: string;
+  img?: string;
+  estado?: boolean;
 }
 
 export interface UserLogin {
@@ -15,15 +26,25 @@ export interface UserLogin {
 }
 
 export interface Rol {
-  id?: string;
+  id: string;
   _id?: string;
   rol: string;
+}
+
+export interface RolResponse {
+  ok: boolean;
+  roles: Rol[];
 }
 
 export interface LoginResponse {
   ok: boolean;
   user: User;
   token: string;
+}
+
+export interface AddUsuarioResponse {
+  ok: boolean;
+  usuario: User;
 }
 
 // ruta
@@ -62,3 +83,4 @@ export interface GetRutasResponse {
 export interface CloseRuta{
   ok: boolean;
 }
+

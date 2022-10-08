@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, UserLogin, LoginResponse, GetRutaResponse, GetRutasResponse, CloseRuta } from '../interfaces/admin.interfaces';
+import { User, UserLogin, LoginResponse, GetRutaResponse, GetRutasResponse, CloseRuta, RolResponse, Ruta, Empleado, AddUsuarioResponse } from '../interfaces/admin.interfaces';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -35,17 +35,17 @@ export class AdminService {
       )
   }
 
-  revalidarToken(): Observable<boolean>{
+  revalidarToken(): Observable<boolean> {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.get<LoginResponse>(`${this.baseUrl}/auth/revalidar/admin`, {headers})
+    return this.http.get<LoginResponse>(`${this.baseUrl}/auth/revalidar/admin`, { headers })
       .pipe(
-        tap( ({token, user}) =>{
+        tap(({ token, user }) => {
           this._user = user;
           localStorage.setItem('token', token)
         }),
-        map( resp => resp.ok),
+        map(resp => resp.ok),
         catchError(err => of(false))
       )
   }
@@ -63,29 +63,29 @@ export class AdminService {
     const params = new HttpParams()
       .append('status', true)
 
-    return this.http.get<GetRutasResponse>(`${this.baseUrl}/rutas`, {headers, params})
+    return this.http.get<GetRutasResponse>(`${this.baseUrl}/rutas`, { headers, params })
   }
 
   getCajas(id: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token'))
 
-    return this.http.get<Caja[]>(`${this.baseUrl}/caja/admin/${id}`, {headers})
+    return this.http.get<Caja[]>(`${this.baseUrl}/caja/admin/${id}`, { headers })
   }
 
   // gestion de rutas
-  closeRuta(id: string){
+  closeRuta(id: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.patch<CloseRuta>(`${this.baseUrl}/rutas/close/${id}`, {}, {headers})
+    return this.http.patch<CloseRuta>(`${this.baseUrl}/rutas/close/${id}`, {}, { headers })
   }
 
-  openRuta(id: string, fecha: string){
+  openRuta(id: string, fecha: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.put<CloseRuta>(`${this.baseUrl}/rutas/open/${id}`, {fecha}, {headers})
+    return this.http.put<CloseRuta>(`${this.baseUrl}/rutas/open/${id}`, { fecha }, { headers })
   }
 
   // actualizar usuario
@@ -93,6 +93,69 @@ export class AdminService {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
 
-    return this.http.put<LoginResponse>(`${this.baseUrl}/usuarios/${id}`, { ...body }, {headers})
+    return this.http.put<LoginResponse>(`${this.baseUrl}/usuarios/${id}`, { ...body }, { headers })
+  }
+
+  actualizarRuta(id: string, body: any) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.put<GetRutaResponse>(`${this.baseUrl}/rutas/${id}`, { ...body }, { headers })
+  }
+
+  addRuta(body: any) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.post<GetRutasResponse>(`${this.baseUrl}/rutas`, { ...body }, { headers });
+  }
+
+  getRutaById(id: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    return this.http.get<GetRutaResponse>(`${this.baseUrl}/rutas/${id}`, {headers})
+  }
+
+  deleteRuta(id: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.delete<boolean>(`${this.baseUrl}/rutas/delete/${id}`, { headers })
+  }
+
+  getAllEmpleados() {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.get<User[]>(`${this.baseUrl}/admin/empleados`, { headers })
+  }
+
+  addEmpleado(empleado: Empleado) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.post<AddUsuarioResponse>(`${this.baseUrl}/usuarios`, empleado, { headers })
+  }
+
+  deleteEmpleado(id: string) {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.delete<boolean>(`${this.baseUrl}/admin/empleados/delete/${id}`, { headers })
+  }
+
+  getRoles() {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.get<RolResponse>(`${this.baseUrl}/roles`, { headers })
+  }
+
+  getRutas() {
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.get<Ruta[]>(`${this.baseUrl}/admin/rutas`, { headers })
   }
 }

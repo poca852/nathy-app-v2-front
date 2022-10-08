@@ -24,6 +24,11 @@ import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChartModule } from 'primeng/chart'
 import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SkeletonModule } from 'primeng/skeleton';
+
+
 
 
 @NgModule({
@@ -32,11 +37,14 @@ import { DialogModule } from 'primeng/dialog';
     RippleModule,
     InputSwitchModule,
     InputTextModule,
+    SelectButtonModule,
+    SkeletonModule,
     ButtonModule,
     MessagesModule,
     MessageModule,
     SidebarModule,
     ToolbarModule,
+    FileUploadModule,
     SplitButtonModule,
     MenuModule,
     ScrollPanelModule,
@@ -52,6 +60,7 @@ import { DialogModule } from 'primeng/dialog';
     ProgressSpinnerModule,
     ChartModule,
     DialogModule,
-    DividerModule]
+    DividerModule
+  ]
 })
 export class PrimengModule { }
