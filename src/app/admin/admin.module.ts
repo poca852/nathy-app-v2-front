@@ -20,6 +20,7 @@ import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { RutasComponent } from './pages/rutas/rutas.component';
 import { TableEmpleadosComponent } from './components/table-empleados/table-empleados.component';
 import { TableRutasComponent } from './components/table-rutas/table-rutas.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TableRutasComponent } from './components/table-rutas/table-rutas.compon
       RutasComponent,
       TableEmpleadosComponent,
       TableRutasComponent,
+      ClientesComponent,
   ],
   imports: [
       CommonModule,

@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="select">
+    <p-dropdown 
+      [options]="admin.rutas"
+      optionLabel="nombre"
+      optionValue="_id"
+      [formControl]="selectorDeRuta"
+      placeholder="Selecciona una ruta"
+      (onChange)="seleccionarRuta($event)">
+
+    </p-dropdown>
+  </div>
+
+  <div class="container">
+    <div 
+      *ngFor="let cliente of clientes">
+      <div>{{cliente.nombre}}</div>
+    </div>
+  </div>
+</div>

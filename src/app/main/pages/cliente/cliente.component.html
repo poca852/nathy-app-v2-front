@@ -1,17 +1,93 @@
-<div class="card" *ngIf="cliente">
-  <div class="card flex flex-column gap-1">
+  <div class="card flex flex-column gap-1" *ngIf="cliente">
 
     <div class="title">
       <h1>{{cliente.nombre}}</h1>
-      <button
-        pButton
-        label="Volver"
-        class="p-button-outlined"
-        routerLink="/main/rutero"
-      >
-
-      </button>
+      <p-toast></p-toast>
+      <div>
+        <span class="p-buttonset">
+          <button
+            pButton
+            pRipple
+            label="Editar"
+            class="p-button-outlined"
+            (click)="diaglogCliente = !diaglogCliente"
+          ></button>
+          <button
+            pButton
+            pRipple
+            label="Volver"
+            class="p-button-outlined p-button-danger"
+            routerLink="/main/rutero"
+          ></button>
+        </span>
+      </div>
     </div>
+
+    <p-dialog [(visible)]="diaglogCliente" [style]="{width: '450px'}" header="Actualizar Cliente" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form [formGroup]="formCliente">
+
+          <div class="field">
+            <label for="dpi">Dpi</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="dpi"
+              id="dpi" />
+          </div>
+
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="nombre"
+              id="nombre" />
+          </div>
+
+          <div class="field">
+            <label for="alias">Alias</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="alias"
+              id="alias" />
+          </div>
+
+          <div class="field">
+            <label for="ciudad">Ciudad</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="ciudad"
+              id="ciudad" />
+          </div>
+
+          <div class="field">
+            <label for="direccion">Direccion</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="direccion"
+              id="direccion" />
+          </div>
+
+          <div class="field">
+            <label for="telefono">Telefono</label>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="telefono"
+              id="telefono" />
+          </div>
+          
+        </form>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="actualizarCliente()"></button>
+      </ng-template>
+    </p-dialog>
 
     <div class="body">
 
@@ -51,4 +127,3 @@
     </div>
 
   </div>
-</div>

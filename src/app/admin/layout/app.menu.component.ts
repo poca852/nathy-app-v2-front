@@ -31,6 +31,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Rutas', 
                         icon: 'pi pi-fw pi-share-alt', 
                         routerLink: ['/admin/rutas']
+                    },
+                    {
+                        label: 'Clientes', 
+                        icon: 'pi pi-fw pi-users', 
+                        routerLink: ['/admin/clientes']
                     }
                 ]
             }

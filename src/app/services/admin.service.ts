@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, UserLogin, LoginResponse, GetRutaResponse, GetRutasResponse, CloseRuta, RolResponse, Ruta, Empleado, AddUsuarioResponse } from '../interfaces/admin.interfaces';
+import { User, UserLogin, LoginResponse, GetRutaResponse, GetRutasResponse, CloseRuta, RolResponse, Ruta, Empleado, AddUsuarioResponse, GetClienteResponse, Cliente } from '../interfaces/admin.interfaces';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -157,5 +157,23 @@ export class AdminService {
       .set('x-token', localStorage.getItem('token') || '')
 
     return this.http.get<Ruta[]>(`${this.baseUrl}/admin/rutas`, { headers })
+  }
+
+  // clientes
+  getClientes(status: boolean, ruta: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    const params = new HttpParams()
+      .append('status', status)
+
+    return this.http.get<GetClienteResponse>(`${this.baseUrl}/clientes/${ruta}`, {headers, params})
+  }
+
+  updateCliente(id: string, body: any){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    return this.http.patch<Cliente>(`${this.baseUrl}/clientes/${id}`, {...body}, {headers})
   }
 }

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import Swal from 'sweetalert2';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
@@ -18,9 +19,12 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   })
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private readonly messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -34,12 +38,13 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/main')
             this.loading = false;
           } else {
-            Swal.fire('Error', resp, 'error')
+            this.messageService.add({ severity: 'error', summary: 'Alerta', detail: resp, life: 2100 });
             this.loading = false;
           }
         })
     } else {
-      Swal.fire('Error', 'Complete el formulario', 'error')
+      // Swal.fire('Error', 'Complete el formulario', 
+      this.messageService.add({ severity: 'warn', summary: 'Alerta', detail: 'Complete el formulario', life: 2100 });
       this.loading = false;
     }
   }

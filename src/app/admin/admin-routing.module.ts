@@ -9,6 +9,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { RutasComponent } from './pages/rutas/rutas.component';
 import { RutaComponent } from './pages/ruta/ruta.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
 
 const routes: Routes = [
   
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: 'ruta/:id',
         component: RutaComponent
+      },
+      {
+        path: 'clientes',
+        component: ClientesComponent
       }
     ]
   },

@@ -1,3 +1,5 @@
+import { Credito } from './main.interfaces';
+
 export interface User {
   id: string;
   _id?: string;
@@ -69,6 +71,26 @@ export interface Ruta {
   caja_actual: string;
   ultima_caja: string;
 }
+
+export interface Cliente {
+  status: boolean; 
+  state: boolean;
+  dpi: string;
+  nombre: string;
+  alias: string;
+  ciudad: string;
+  direccion: string;
+  telefono: string;
+  img?: string;
+  ruta: string;
+  creditos: Credito[];
+}
+
+export interface GetClienteResponse {
+  ok: boolean;
+  clientes: Cliente[]
+}
+
 
 export interface GetRutaResponse {
   ok: boolean;
