@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Ruta } from 'src/app/interfaces/admin.interfaces';
 import { AdminService } from '../../../services/admin.service';
 import * as moment from 'moment';
-import Swal from 'sweetalert2';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [MessageService]
 })
 export class DashboardComponent implements OnInit {
 
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
   }
 
   constructor(
-    private adminService: AdminService
+    private adminService: AdminService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(resp => {
         if(resp){
           this.getRutas()
-          Swal.fire('Success', 'Ruta Abierta', 'success')
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Ruta abierta', life: 2000 });
         }
       })
   }
