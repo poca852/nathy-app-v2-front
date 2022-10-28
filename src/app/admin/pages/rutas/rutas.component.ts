@@ -4,7 +4,6 @@ import { AdminService } from '../../../services/admin.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rutas',
