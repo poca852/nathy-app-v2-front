@@ -1,0 +1,26 @@
+.main{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.credito{
+  border: thin solid rgba(0, 0, 0, .20);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.2);
+}
+
+.header, .content{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.v_cuota{
+  color: #1DA750;
+  font-size: 1.3em;
+  font-weight: bold;
+}

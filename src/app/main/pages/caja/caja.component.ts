@@ -5,17 +5,20 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-caja',
   templateUrl: './caja.component.html',
   styleUrls: ['./caja.component.css'],
+  providers: [MessageService]
 })
 export class CajaComponent implements OnInit {
 
   caja!: Caja;
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
   loading: boolean = true;
+  dialogoCerrar: boolean = false;
 
   get user() {
     return this.authService.user;
@@ -23,7 +26,9 @@ export class CajaComponent implements OnInit {
 
   constructor(private mainService: MainService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit(): void {
     this.mainService.getCaja(this.user.ruta, this.hoy)
@@ -35,32 +40,26 @@ export class CajaComponent implements OnInit {
 
   cerrarRuta() {
     this.loading = true
-    Swal.fire({
-      title: 'Estas a punto de cerrar la ruta',
-      text: "Esta acción ya no se podra revertir",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.mainService.closeRuta(this.user.ruta, this.hoy)
-          .subscribe(resp => {
-            if (resp) {
-              this.authService.logout();
-              Swal.fire('Success', 'Ruta Cerrada', 'success')
-              this.router.navigateByUrl('auth');
-              this.loading = false;
-            } else {
-              this.loading = false;
-            }
+    this.mainService.closeRuta(this.user.ruta, this.hoy)
+      .subscribe(resp => {
+        if (resp) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'SuccessFul',
+            detail: 'Ruta Cerrada',
+            life: 3000
           })
-      } else {
-        this.loading = false;
-      }
-    })
+          this.authService.logout();
+          this.router.navigateByUrl('auth');
+          this.loading = false;
+        } else {
+          this.loading = false;
+        }
+      })
+  }
+
+  confirmCerrarRuta() {
+    this.cerrarRuta()
   }
 
 }

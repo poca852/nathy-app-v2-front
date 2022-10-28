@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Gasto, ListaDeGastos, CrearGasto } from '../../interfaces/main.interfaces';
+import { ListaDeGastos, CrearGasto } from '../../interfaces/main.interfaces';
 import { MainService } from '../../services/main.service';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { AuthService } from '../../services/auth.service';
-import Swal from 'sweetalert2';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',
   styleUrls: ['./gastos.component.css'],
-  providers: [ConfirmationService]
+  providers: [MessageService]
 })
 export class GastosComponent implements OnInit {
 
@@ -24,6 +23,8 @@ export class GastosComponent implements OnInit {
   nota: FormControl = this.fb.control('');
   fecha: string = moment().utc(true).format('DD/MM/YYYY');
 
+  dialogoInserGasto: boolean = false;
+
   get user() {
     return this.authService.user;
   }
@@ -31,52 +32,55 @@ export class GastosComponent implements OnInit {
   constructor(private mainService: MainService,
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.mainService.getListaGastos()
       .subscribe(resp => {
         this.gastos = resp
       })
-
   }
 
   crearGasto() {
     this.loading = true;
-    Swal.fire({
-      title: 'Confrmación',
-      text: "¿Esta seguro de agregar este gasto?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let gasto: CrearGasto = {
-          fecha: this.fecha,
-          valor: this.valor.value,
-          gasto: this.gasto.value,
-          idRuta: this.user.ruta,
-          nota: this.nota.value
-        }
-        this.mainService.addGasto(gasto)
-          .subscribe(resp => {
-            if (resp === true) {
-              Swal.fire('Success', 'Gasto agregado correctamente', 'success')
-              this.router.navigateByUrl('/main/caja')
-              this.loading = false
-            } else {
-              Swal.fire('Error', resp.error.errors.valor.msg, 'error')
-              this.loading = false
-            }
+    let gasto: CrearGasto = {
+      fecha: this.fecha,
+      valor: this.valor.value,
+      gasto: this.gasto.value,
+      idRuta: this.user.ruta,
+      nota: this.nota.value
+    }
+        
+    this.mainService.addGasto(gasto)
+      .subscribe(resp => {
+        if (resp === true) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'SuccessFul',
+            detail: 'Gasto agregado',
+            life: 3000
           })
-      } else {
-        this.loading = false
-
-      }
-    })
-
+          this.dialogoInserGasto = false;
+          this.router.navigateByUrl('/main/caja')
+          this.loading = false
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: resp.error.errors.valor.msg,
+            life: 3000
+          })
+          this.dialogoInserGasto = false;
+          this.loading = false
+        }
+      })
+  
   }
+
+  confirmarGasto(){
+    this.crearGasto();
+  }
+
 }

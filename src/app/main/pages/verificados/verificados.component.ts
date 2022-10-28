@@ -14,7 +14,7 @@ export class VerificadosComponent implements OnInit {
   // creditos: Credito[] = [];
   pagos: Pago[] = [];
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
-  loading: boolean = false;
+  loading: boolean = true;
 
   get user(){
     return this.authService.user;
@@ -25,7 +25,6 @@ export class VerificadosComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loading = true
     this.mainService.getAllPagos(this.user.ruta, this.hoy)
       .subscribe(resp => {
         this.loading = false;

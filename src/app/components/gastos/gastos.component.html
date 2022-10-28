@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="main flex justify-content-center" *ngIf="!loading">
   <div class="card surface-overlay">
     <div class="title">
@@ -5,39 +6,47 @@
     </div>
     <div class="body card-container flex flex-column ustify-content-center gap-2">
 
-      <p-dropdown
-        [options]="gastos"
-        optionValue="id"
-        [formControl]="gasto"
-        optionLabel="gasto"> 
+      <p-dropdown [options]="gastos" optionValue="id" [formControl]="gasto" optionLabel="gasto">
       </p-dropdown>
 
-      <p-inputNumber
-        mode="currency"
-        class="w-full"
-        currency="GTQ"
-        [formControl]="valor"
-        locale="es-GT"
-        [min]="0"
+      <p-inputNumber mode="currency" class="w-full" currency="GTQ" [formControl]="valor" locale="es-GT" [min]="0"
         placeholder="Ejemplo: Q.30.00">
       </p-inputNumber>
 
-      <textarea 
-        pInputTextarea
-        cols="30"
-        rows="5"
-        [formControl]="nota"
-        [autoResize]="true"
+      <textarea pInputTextarea cols="30" rows="5" [formControl]="nota" [autoResize]="true"
         placeholder="Nota"></textarea>
-     
-      <button 
-        pButton 
-        label="Guardar" 
-        (click)="crearGasto()"
-        [disabled]="loading"></button>
+
+      <button pButton label="Guardar" (click)="dialogoInserGasto = true" [disabled]="loading"></button>
     </div>
   </div>
 </div>
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
+
+<p-dialog [(visible)]="dialogoInserGasto" [modal]="true" header="Confirmar" [style]="{width: '300px'}">
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span>Esta seguro de agregar este gasto?</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      label="No"
+      (click)="dialogoInserGasto= false"></button>
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      label="Si" 
+      (click)="confirmarGasto()"></button>
+  </ng-template>
+</p-dialog>
+
+<div class="card" *ngIf="loading">
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
 </div>

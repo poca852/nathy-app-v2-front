@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="card" *ngIf="caja; else loading">
   <div class="flex flex-column justify-content-center">
 
@@ -81,7 +82,7 @@
         class="col"
         pButton
         label="Cerrar Ruta"
-        (click)="cerrarRuta()"
+        (click)="dialogoCerrar = true"
       >
 
       </button>
@@ -89,8 +90,25 @@
 
   </div>
 </div>
+<p-dialog 
+  [(visible)]="dialogoCerrar" 
+  [modal]="true" 
+  header="Confirmar" 
+  [style]="{width: '350px'}">
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span *ngIf="caja">¿Esta seguro de cerrar la ruta?</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+      (click)="dialogoCerrar = false"></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmCerrarRuta()"></button>
+  </ng-template>
+</p-dialog>
 <ng-template #loading>
-  <div class="loading">
-    <p-progressSpinner></p-progressSpinner>
+  <div class="card">
+    <div class="loading">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
   </div>
 </ng-template>

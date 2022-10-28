@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="main flex justify-content-center" *ngIf="!loading">
   <div class="card surface-overlay">
     <div class="title">
@@ -25,12 +26,43 @@
         <button 
           pButton 
           label="Guardar" 
-          (click)="crearRetiro()" 
+          (click)="dialogoRetiro = true"
           [disabled]="loading"></button>
     </div>
   </div>
 </div>
 
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
+<p-dialog
+  [(visible)]="dialogoRetiro"
+  header="Confirmar"
+  [modal]="true"
+  [style]="{width: '450px'}"
+>
+
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span>Esta seguro de agregar este retiro?</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      label="No"
+      (click)="dialogoRetiro = false"></button>
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      label="Si" 
+      (click)="confirmarRetiro()"></button>
+  </ng-template>
+</p-dialog>
+
+<div class="card" *ngIf="loading">
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
 </div>

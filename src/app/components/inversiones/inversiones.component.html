@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="main flex justify-content-center" *ngIf="!loading">
   <div class="card surface-overlay">
     <div class="title">
@@ -21,10 +22,42 @@
         placeholder="Ejemplo: Inversion por reajuste de caja" 
         pInputTextarea
         [autoResize]="true"></textarea>
-        <button pButton label="Guardar" (click)="crearInversion()" [disabled]="loading"></button>
+        <button pButton label="Guardar" (click)="dialogoConfirmInversion = true" [disabled]="loading"></button>
     </div>
   </div>
 </div>
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
+
+<p-dialog
+  [(visible)]="dialogoConfirmInversion"
+  [modal]="true"
+  [style]="{width: '450px'}"
+  header="Confirmar"
+>
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span>Esta seguro de agregar esta inversion?</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      label="No"
+      (click)="dialogoConfirmInversion= false"></button>
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      label="Si" 
+      (click)="confirmarInversion()"></button>
+  </ng-template>
+</p-dialog>
+
+<div class="card" *ngIf="loading">
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
 </div>
