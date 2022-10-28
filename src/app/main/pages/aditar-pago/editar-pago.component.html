@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="card" *ngIf="pago">
   <div class="contenedor p-3 card-container flex flex-column justify-content-center gap-2">
       <div class="header grid flex align-items-center">
@@ -29,11 +30,23 @@
             />
           </div>
           <div class="col">
-            <button pButton label="Pagar" [disabled]="loading" (click)="pagar()"></button>
+            <button pButton label="Pagar" [disabled]="loading" (click)="digalogConfirm = true"></button>
           </div>
         </div>
       </div>
   </div>
+
+  <p-dialog [(visible)]="digalogConfirm" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+    <div class="flex align-items-center justify-content-center">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+      <span *ngIf="pago">¿Esta seguro de actualizar el pago de <b>{{pago.cliente.nombre}}</b>?</span>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+        (click)="digalogConfirm = false"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmActualizar()"></button>
+    </ng-template>
+  </p-dialog>
 
   <div class="historial">
     <h3>Historial de pagos</h3>
