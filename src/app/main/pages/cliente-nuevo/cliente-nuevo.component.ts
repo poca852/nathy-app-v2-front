@@ -4,15 +4,18 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cliente-nuevo',
   templateUrl: './cliente-nuevo.component.html',
-  styles: []
+  styles: [],
+  providers: [MessageService]
 })
 export class ClienteNuevoComponent implements OnInit {
 
   loading: boolean = false;
+  dialogClienteNuevo: boolean = false;
   
   formCliente: FormGroup = this.fb.group({
     dpi: ['', [Validators.required]],
@@ -28,10 +31,13 @@ export class ClienteNuevoComponent implements OnInit {
     return this.authService.user;
   }
 
-  constructor(private mainService: MainService,
-              private router: Router,
-              private fb: FormBuilder,
-              private authService: AuthService) { }
+  constructor(
+    private mainService: MainService,
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.formCliente.reset({idRuta: this.user.ruta});
@@ -39,37 +45,37 @@ export class ClienteNuevoComponent implements OnInit {
 
   guardar(){
     this.loading = true;
-
-    Swal.fire({
-      title: `Agregando a ${this.formCliente.get('nombre').value}`,
-      text: "Por favor revisa bien los datos, Revertir esto es complicado!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, agregar Cliente'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if(this.formCliente.valid){
-          this.mainService.addCliente(this.formCliente.value)
-          .subscribe(ok => {
-            if(ok === true){
-              this.loading = false
-              this.router.navigateByUrl('/main/renovaciones')
-
-              Swal.fire('Success', `${this.formCliente.get('nombre').value} agregado correctamente`, 'success')
-              this.loading = false
-            }else{
-              Swal.fire('Error', ok.error.msg, 'error')
-              this.loading = false
-            }
+    if(this.formCliente.valid){
+      this.mainService.addCliente(this.formCliente.value)
+      .subscribe(ok => {
+        if(ok === true){
+          this.loading = false
+          this.dialogClienteNuevo = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'SuccessFul',
+            detail: `${this.formCliente.get('nombre').value} Agregado`,
+            life: 3000
+          })
+          this.router.navigateByUrl('/main/renovaciones')
+          this.loading = false
+        }else{
+          this.dialogClienteNuevo = false;
+          this.loading = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'SuccessFul',
+            detail: ok.error.msg,
+            life: 3000
           })
         }
-      }else{
-        this.loading = false
-      }
-    })
+      })
+    }
     
+  }
+
+  confirmarClienteNuevo(){
+    this.guardar()
   }
   
 }

@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="card flex flex-column" *ngIf="!loading">
   <div class="flex flex-row justify-content-between align-items-center">
     <button
@@ -11,7 +12,7 @@
   </div>
   <form 
     [formGroup]="creditoForm" 
-    (ngSubmit)="crearCredito()">
+    (ngSubmit)="dialogoRenovar = true">
 
     <div class="flex flex-column gap-2">
 
@@ -64,6 +65,37 @@
   </form>
 </div>
 
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
+<p-dialog
+  [(visible)]="dialogoRenovar"
+  [modal]="true"
+  header="Confirmar"
+  [style]="{width: '350px'}"
+>
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span *ngIf="cliente">Renovar a {{cliente.nombre | titlecase}} por {{creditoForm.get('valor_credito').value | currency:'GTQ'}}?</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      label="No"
+      (click)="dialogoRenovar= false"></button>
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      label="Si" 
+      (click)="confirmarRenovar()"></button>
+  </ng-template>
+</p-dialog>
+
+<div class="card" *ngIf="loading">
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
 </div>

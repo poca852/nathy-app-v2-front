@@ -15,9 +15,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OficinaComponent implements OnInit {
 
+  loading: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.loading = false;
   }
 
 }

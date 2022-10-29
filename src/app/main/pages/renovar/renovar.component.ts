@@ -5,18 +5,20 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Cliente } from '../../../interfaces/main.interfaces';
 import { switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
-import Swal from 'sweetalert2';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-renovar',
   templateUrl: './renovar.component.html',
   styleUrls: ['./renovar.component.css'],
+  providers: [MessageService]
 })
 export class RenovarComponent implements OnInit, OnDestroy {
 
   loading: boolean = true;
   cliente: Cliente | null;
   hoy: string = moment().utc(true).format('DD/MM/YYYY');
+  dialogoRenovar: boolean = false;
 
   creditoForm: FormGroup = this.fb.group({
     valor_credito: [null, [Validators.required, Validators.min(1)]],
@@ -33,6 +35,7 @@ export class RenovarComponent implements OnInit, OnDestroy {
     private router: Router,
     private aR: ActivatedRoute,
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) { }
 
 
@@ -62,35 +65,34 @@ export class RenovarComponent implements OnInit, OnDestroy {
 
   crearCredito() {
     this.loading = true;
-    Swal.fire({
-      title: `Estas renovando a ${this.cliente.nombre}`,
-      text: "Estas seguro que los datos estan correctos?, revertir esto es complicado.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        if (this.creditoForm.valid) {
-          this.mainService.addCredito(this.creditoForm.value)
-            .subscribe(resp => {
-              if (resp === true) {
-                Swal.fire('Success', 'Cliente renovado correctamente', 'success')
-                this.router.navigateByUrl('/main/rutero')
-                this.loading = false;
-              } else {
-                console.log(resp)
-                Swal.fire('Error', resp.error, 'error');
-                this.loading = false;
-              }
+    if (this.creditoForm.valid) {
+      this.mainService.addCredito(this.creditoForm.value)
+        .subscribe(resp => {
+          if (resp === true) {
+            this.dialogoRenovar = false;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'SuccessFul',
+              detail: 'Cliente renovado',
+              life: 4000
             })
-        }
-      } else {
-        this.loading = false;
-      }
-    })
+            this.router.navigateByUrl('/main/rutero')
+            this.loading = false;
+          } else {
+            this.dialogoRenovar = false;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'SuccessFul',
+              detail: resp.error,
+              life: 4000
+            })
+            this.loading = false;
+          }
+        })
+    }
+  }
+
+  confirmarRenovar(){
+    this.crearCredito()
   }
 }

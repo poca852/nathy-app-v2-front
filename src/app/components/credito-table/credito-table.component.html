@@ -44,5 +44,6 @@
       <p class="fecha_inicio">{{credito.fecha_inicio}}</p>
       <p class="saldo">{{credito.saldo | currency:'GTQ'}}</p>
     </div>
+    <p class="c_pendientes">{{ (credito.saldo / credito.valor_cuota) | number:'1.2-2'}} / {{credito.total_cuotas}}</p>
   </div>
 </div>

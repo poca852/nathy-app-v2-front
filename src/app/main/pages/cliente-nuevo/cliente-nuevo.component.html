@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="card flex flex-column" *ngIf="!loading">
 
   <div class="header flex flex-row align-items-center justify-content-between">
@@ -12,7 +13,7 @@
   <form  
     class="card" 
     autocomplete="off" 
-    (submit)="guardar()" 
+    (submit)="dialogClienteNuevo = true" 
     [formGroup]="formCliente">
     
     <div class="flex flex-column justify-content-center gap-2">
@@ -61,6 +62,37 @@
   </form>
 </div>
 
-<div class="loading" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
+<p-dialog
+  [(visible)]="dialogClienteNuevo"
+  [modal]="true"
+  header="Confirmar"
+  [style]="{width: '350px'}"
+>
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span>Esta seguro de agregar a <b>{{formCliente.get('nombre').value}}</b>?</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      label="No"
+      (click)="dialogClienteNuevo= false"></button>
+    <button 
+      pButton 
+      pRipple 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      label="Si" 
+      (click)="confirmarClienteNuevo()"></button>
+  </ng-template>
+</p-dialog>
+
+<div class="card" *ngIf="loading">
+  <div class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
 </div>
