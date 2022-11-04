@@ -37,12 +37,12 @@
   <div *ngFor="let credito of creditos" class="credito" [routerLink]="['/main/pago', credito.id]">
     <div class="header">
       <p class="alias" [style]="{'fontSize': '1.2em', 'fontWeight': 'bold'}">{{credito.cliente.alias | titlecase}}</p>
-      <p class="v_cuota">{{credito.valor_cuota | currency:'GTQ'}}</p>
+      <p class="v_cuota">{{credito.valor_cuota | currency:'$'}}</p>
     </div>
 
     <div class="content">
       <p class="fecha_inicio">{{credito.fecha_inicio}}</p>
-      <p class="saldo">{{credito.saldo | currency:'GTQ'}}</p>
+      <p class="saldo">{{credito.saldo | currency:'$'}}</p>
     </div>
     <p class="c_pendientes">{{ (credito.saldo / credito.valor_cuota) | number:'1.2-2'}} / {{credito.total_cuotas}}</p>
   </div>
