@@ -33,13 +33,12 @@ export interface ResponseGetOneCredito{
 }
 
 export interface FormularioNuevoCredito{
-  interes: number;
+  interes?: number;
   total_cuotas: number;
   notas?: string;
-  fecha: string;
-  idRuta: string;
+  valor_cuota?: number;
+  fecha_inicio: string;
   valor_credito: number;
-  idCliente: string;
 }
 
 // =========== FIN DE INTERFACES DE CREDITOS
@@ -62,7 +61,7 @@ export interface Caja {
   caja_final: number
   pretendido: number
   extra: number;
-  ruta: Ruta | string;
+  ruta: Ruta;
 }
 
 export interface ResponseGetOneCaja {

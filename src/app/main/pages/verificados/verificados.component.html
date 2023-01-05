@@ -31,12 +31,12 @@
     <div *ngFor="let pago of pagos" class="credito" [routerLink]="['/main/pago/editar', pago.id]">
       <div class="header">
         <p class="alias" [style]="{'fontSize': '1.2em', 'fontWeight': 'bold'}">{{pago.cliente.alias | titlecase}}</p>
-        <p class="v_cuota">{{pago.valor | currency:'GTQ'}}</p>
+        <p class="v_cuota">{{pago.valor | currency:'$'}}</p>
       </div>
 
       <div class="content">
         <p class="fecha_inicio">{{pago.fecha}}</p>
-        <p class="saldo">{{pago.credito.saldo | currency:'GTQ'}}</p>
+        <p class="saldo">{{pago.credito.saldo | currency:'$'}}</p>
       </div>
     </div>
   </div>

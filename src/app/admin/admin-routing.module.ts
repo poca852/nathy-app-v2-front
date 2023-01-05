@@ -10,6 +10,8 @@ import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { RutasComponent } from './pages/rutas/rutas.component';
 import { RutaComponent } from './pages/ruta/ruta.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
+import { CajasComponent } from './pages/cajas/cajas.component';
+import { CreditosComponent } from './pages/creditos/creditos.component';
 
 const routes: Routes = [
   
@@ -49,6 +51,14 @@ const routes: Routes = [
       {
         path: 'clientes',
         component: ClientesComponent
+      },
+      {
+        path: 'cajas',
+        component: CajasComponent
+      },
+      {
+        path: 'creditos',
+        component: CreditosComponent
       }
     ]
   },

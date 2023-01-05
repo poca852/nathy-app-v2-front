@@ -176,4 +176,15 @@ export class AdminService {
 
     return this.http.patch<Cliente>(`${this.baseUrl}/clientes/${id}`, {...body}, {headers})
   }
+
+  // cajas
+  buscarCajas(termino: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+
+    const params = new HttpParams()
+      .append('fecha', termino);
+
+    return this.http.get<Caja[]>(`${this.baseUrl}/caja/search`, {headers, params});
+  }
 }

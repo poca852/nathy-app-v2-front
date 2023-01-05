@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 // interfaces
-import { ResponseGetAllCreditos, ResponseGetOneCredito, ResponseGetPago, ResponseGetOneCliente, ResponseGetAllCliente, ResponseGetOneCaja, ResponseGetOneInversion, ResponseGetListaDeGastos, ResponseGetOneGasto, ResponseGetOneRetiro, ResponseGetAllPagos, ResponseGetOneRuta, RutaClose, FormularioNuevoCredito, ResponseSearchCliente, CrearPagoInterface, CrearInversion, CrearRetiro, CrearGasto, ActualizarPago, GetAllPagos } from '../interfaces/main.interfaces';
+import { ResponseGetAllCreditos, ResponseGetOneCredito, ResponseGetPago, ResponseGetOneCliente, ResponseGetAllCliente, ResponseGetOneCaja, ResponseGetOneInversion, ResponseGetListaDeGastos, ResponseGetOneGasto, ResponseGetOneRetiro, ResponseGetAllPagos, ResponseGetOneRuta, RutaClose, FormularioNuevoCredito, ResponseSearchCliente, CrearPagoInterface, CrearInversion, CrearRetiro, CrearGasto, ActualizarPago, GetAllPagos, Credito } from '../interfaces/main.interfaces';
 
 
 
@@ -79,13 +79,26 @@ export class MainService {
     return this.http.get<ResponseGetAllCliente>(`${this.baseUrl}/clientes/${idRuta}`, { headers, params })
   }
 
-  addCredito(credito: FormularioNuevoCredito) {
+  addCredito(credito: FormularioNuevoCredito, idCliente: string) {
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '')
 
-    return this.http.post<ResponseGetOneCredito>(`${this.baseUrl}/creditos/${credito.idCliente}`, credito, { headers })
+    return this.http.post<ResponseGetOneCredito>(`${this.baseUrl}/creditos/${idCliente}`, credito, { headers })
       .pipe(
         map(resp => resp.ok),
+        catchError(err => of(err))
+      )
+  }
+
+  addCreditoManual(credito: FormularioNuevoCredito, idCliente: string){
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '')
+
+    console.log(credito)
+
+    return this.http.post<Credito>(`${this.baseUrl}/creditos/manual/${idCliente}`, credito, {headers})
+      .pipe(
+        map(resp => resp),
         catchError(err => of(err))
       )
   }

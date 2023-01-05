@@ -27,6 +27,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SkeletonModule } from 'primeng/skeleton';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -60,7 +61,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     ProgressSpinnerModule,
     ChartModule,
     DialogModule,
-    DividerModule
+    DividerModule,
+    CalendarModule
   ]
 })
 export class PrimengModule { }

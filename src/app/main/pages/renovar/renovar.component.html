@@ -9,10 +9,21 @@
     ></button>
 
     <h3>Renovando a {{cliente?.nombre | titlecase }}({{cliente.alias | titlecase}}) </h3>
+
+    
+  </div>
+  <div class="flex mb-3">
+    <p-selectButton
+      [formControl]="creditoManual"
+      [options]="optionsCredito"
+      optionLabel="label"
+      optionValue="value"
+    ></p-selectButton>
   </div>
   <form 
     [formGroup]="creditoForm" 
-    (ngSubmit)="dialogoRenovar = true">
+    (ngSubmit)="dialogoRenovar = true"
+    *ngIf="!creditoManual.value">
 
     <div class="flex flex-column gap-2">
 
@@ -20,7 +31,7 @@
         type="number"
         pInputText
         [min]="1"
-        placeholder="Valor Credito, Ejemplo: 1000"
+        placeholder="Valor Credito, Ejemplo: $1000000"
         formControlName="valor_credito" />
     
       <div class="flex flex-row gap-1">
@@ -63,6 +74,62 @@
 
     </div>
   </form>
+
+  <!-- credito manual -->
+  <form 
+    [formGroup]="creditoManualForm" 
+    (ngSubmit)="dialogoRenovar = true"
+    *ngIf="creditoManual.value">
+
+    <div class="flex flex-column gap-2">
+
+      <input 
+        type="number"
+        pInputText
+        [min]="1"
+        placeholder="Valor Credito, Ejemplo: $1000000"
+        formControlName="valor_credito" />
+    
+      <div class="flex flex-row gap-1">
+        <input 
+          pInputText
+          class="w-6"
+          type="number"
+          placeholder="Valor de la cuota, Ejemplo: 100"
+          formControlName="valor_cuota"
+          [min]="0" />
+  
+        <input
+          class="w-6"
+          pInputText
+          type="number"
+          placeholder="Cuotas, Ejemplo: 20"
+          formControlName="total_cuotas"
+          [min]="1" />
+      </div>
+
+      <textarea 
+        type="text"
+        pInputTextarea
+        placeholder="Observaciones"
+        formControlName="notas"
+        rows="3"
+        [autoResize]>
+      </textarea>
+    
+      <div class="flex flex-wrap">
+        <button 
+          pButton 
+          class="w-full"
+          type="submit" 
+          label="Ingresar" 
+          [disabled]="creditoManualForm.invalid"></button>
+      </div>
+
+    
+
+    </div>
+  </form>
 </div>
 
 <p-dialog
@@ -90,7 +157,7 @@
       icon="pi pi-check" 
       class="p-button-text" 
       label="Si" 
-      (click)="confirmarRenovar()"></button>
+      (click)="confirmarRenovar(creditoManual.value)"></button>
   </ng-template>
 </p-dialog>
 

@@ -1,0 +1,25 @@
+<div class="flex flex-column mt-5 gap-3 justify-content-center">
+  <div 
+    *ngFor="let caja of cajas"
+    class="flex border-1 justify-content-center p-2 border-round-sm">
+    Ruta: {{caja.ruta.nombre}}
+    <br>
+    Base: {{caja.base | currency:'$'}}
+    <br>
+    Inversion: {{caja.base | currency:'$'}}
+    <br>
+    Clientes: {{caja.total_clientes}}
+    <br>
+    Pretendido: {{caja.pretendido}}
+    <br>
+    Cobro: {{caja.cobro}}
+    <br>
+    Extra: {{caja.extra}}
+    <br>
+    Gastos: {{caja.gasto | currency:'$'}}
+    <br>
+    Inversion: {{caja.inversion | currency:'$'}}
+    <br>
+    Caja Final: {{caja.caja_final | currency:'$'}}
+  </div>
+</div>
